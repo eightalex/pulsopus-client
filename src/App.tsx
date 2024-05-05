@@ -1,11 +1,10 @@
 import { DOCUMENTS_TITLES } from '@/constants/routes';
 import { routes } from '@/routes';
 import { Box } from '@mui/material';
-import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 import { useLocation, useRoutes } from 'react-router-dom';
 
-const App = observer(() => {
+const App = () => {
 	const location = useLocation();
 	const element = useRoutes(routes);
 
@@ -29,6 +28,6 @@ const App = observer(() => {
 			{element}
 		</Box>
 	);
-});
+};
 
 export default App;
