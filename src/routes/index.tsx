@@ -3,6 +3,7 @@ import { MainLayout } from '@/components/Layout';
 import LazyLoader from '@/components/LazyLoader';
 import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 import { ABOUT_ROUTE, METHODOLOGY_ROUTE, ROOT_ID, ROOT_ROUTE, USER_CASES_ROUTE } from '@/constants/routes';
+import AuthModule from '@/modules/AuthModule';
 
 const HomePage = LazyLoader(
 	lazy(() => import(/* webpackChunkName: 'home page' */ '../pages/HomePage'))
@@ -26,7 +27,7 @@ export const routes: RouteObject[] = [
 		path: ROOT_ROUTE,
 		element: (
 			<MainLayout>
-				{/*<AuthModule/>*/}
+				<AuthModule/>
 				<Outlet/>
 			</MainLayout>
 		),

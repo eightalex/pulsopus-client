@@ -1,4 +1,3 @@
-// import { useStores } from '@/hooks';
 import { createBrowserHistory } from 'history';
 import { NotificationContainer } from '@/root/NotificationContainer.tsx';
 import Theme from '@/theme';
@@ -21,17 +20,6 @@ const history = createBrowserHistory({
 
 
 const Root: FC<IRoot> = ({ children }) => {
-    // const {
-    //     rootStore: {
-    //         routeStore: { history },
-    //         authStore: { onAuthorize },
-    //     },
-    // } = useStores();
-    //
-    // useEffect(() => {
-    //     onAuthorize();
-    // }, [onAuthorize]);
-
     return (
         <Provider store={store}>
             <HistoryRouter

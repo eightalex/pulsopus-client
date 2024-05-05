@@ -8,12 +8,16 @@ export class AuthService {
 
 	constructor(private readonly restInstance: AxiosInstance) {}
 
-	// public async getTokens(): Promise<{ accessToken: string, refreshToken: string }> {
-	// 	return {
-	// 		accessToken: this.local.getAccessToken(),
-	// 		refreshToken: this.local.getRefreshToken(),
-	// 	};
-	// }
+	public async getTokens(): Promise<{ accessToken: string, refreshToken: string }> {
+		// return {
+		// 	accessToken: this.local.getAccessToken(),
+		// 	refreshToken: this.local.getRefreshToken(),
+		// };
+		return {
+			accessToken: '',
+			refreshToken: '',
+		};
+	}
 	//
 	// public async setTokens({ accessToken, refreshToken }: IAuthAuthorize) {
 	// 	this.local.setAccessToken(accessToken);

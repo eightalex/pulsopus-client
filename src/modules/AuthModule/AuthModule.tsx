@@ -4,8 +4,10 @@ import { Dialog } from "@/components/Dialog";
 import { Login } from "./login/Login.tsx";
 import { Unauthorized } from "./unauthorized/Unauthorized.tsx";
 import { UnauthorizedSent } from "@/modules/AuthModule/unauthorized/UnauthorizedSent.tsx";
-import { useSelector } from "@/hooks";
-import { getAuthPopupState } from "@/stores/popup";
+import { useDispatch, useSelector } from "@/hooks";
+import { actions as popupActions, getAuthPopupState } from "@/stores/popup";
+import { getAuthStage } from "@/stores/auth";
+import { EPopupType } from "@/interfaces/IPopupStore.ts";
 
 const STAGE_MODULES: Record<keyof typeof EAuthStage, ReactElement> = {
 	[EAuthStage.SIGN_STAGE]: <Login/>,
@@ -15,8 +17,10 @@ const STAGE_MODULES: Record<keyof typeof EAuthStage, ReactElement> = {
 };
 
 const AuthModule = memo(() => {
+	const dispatch = useDispatch();
 	const isOpen = useSelector(getAuthPopupState);
-	console.log('isOpen', isOpen);
+	const stage = useSelector(getAuthStage);
+
 	// const {
 	// 	rootStore: {
 	// 		modalsStore: {
@@ -26,26 +30,20 @@ const AuthModule = memo(() => {
 	// 	},
 	// } = useStores();
 
-	// const handleClose = useCallback(() => {
-	// 	onClose();
-	// 	resetAuthState();
-	// }, [onClose, resetAuthState]);
-
 	const handleClose = useCallback(() => {
-
-	}, []);
-
-	const isOpen = false;
+		// resetAuthState();
+		dispatch(popupActions.setClosePopup(EPopupType.AUTH));
+	}, [dispatch]);
 
 	return (
 		<Dialog
 			open={isOpen}
 			onClose={handleClose}
-			// hideClose={stage === EAuthStage.SIGN_STAGE}
+			hideClose={stage === EAuthStage.SIGN_STAGE}
 			maxWidth='sm'
 			fullWidth
 		>
-			{/*{isOpen && stage && STAGE_MODULES[stage]}*/}
+			{isOpen && stage && STAGE_MODULES[stage]}
 		</Dialog>
 	);
 });

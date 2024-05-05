@@ -6,6 +6,8 @@ import { loginValidationSchema } from "@/constants/scheme/loginValidationSchema.
 import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import Typography from "@/components/Typography";
+import { getIsLoading, onLogin } from '@/stores/auth';
+import { useDispatch, useSelector } from "@/hooks";
 
 const initialValues = {
     email: 'admin@pulsopus.com',
@@ -14,17 +16,19 @@ const initialValues = {
 
 export const LoginForm = () => {
     const location = useLocation();
-    // const {
-    //     rootStore: {
-    //         authStore: { onLogin, isLoadingAuth, handleOpenForgetPassword },
-    //     },
-    // } = useStores();
+    const dispatch = useDispatch();
+    const isLoading = useSelector(getIsLoading);
 
     const formik = useFormik({
         initialValues,
         validationSchema: loginValidationSchema,
         onSubmit: (values) => {
-            onLogin(values.email, values.password, location?.state?.from?.pathname);
+            const { email: login, password } = values;
+            dispatch(onLogin({
+                login,
+                password,
+                redirect: location?.state?.from?.pathname,
+            }));
         },
     });
 
@@ -33,6 +37,8 @@ export const LoginForm = () => {
         const { email: errorEmail, password: errorPassword } = formik.errors;
         return Boolean((touchedEmail && errorEmail) || (touchedPassword && errorPassword));
     }, [formik.errors, formik.touched]);
+
+    const handleOpenForgetPassword = () => {};
 
     return (
         <form onSubmit={formik.handleSubmit}>
@@ -64,6 +70,7 @@ export const LoginForm = () => {
                         helperText={formik.touched.password && formik.errors.password}
                     />
                     <Button
+                        disabled
                         onClick={() => handleOpenForgetPassword()}
                         variant="text"
                         sx={{
@@ -72,13 +79,13 @@ export const LoginForm = () => {
                             justifyContent: 'start',
                         }}
                     >
-                        <Typography variant="caption2" color='success'>
+                        <Typography variant="caption2" color='typography.success'>
                             Forgot password?
                         </Typography>
                     </Button>
                 </Stack>
                 <LoadingButton
-                    loading={isLoadingAuth}
+                    loading={isLoading}
                     disabled={isFormError}
                     type="submit"
                     variant={'contained'}

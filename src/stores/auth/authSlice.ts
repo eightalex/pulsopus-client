@@ -1,9 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IAuthStore } from "@/interfaces/IAuthStore.ts";
+import { EAuthStage } from "@/constants/EAuth.ts";
+import { onLogin } from "@/stores/auth/operations.ts";
 
 const initialState: IAuthStore = {
     token: undefined,
     isAuthorized: false,
+    isLoading: false,
+    stage: EAuthStage.SIGN_STAGE,
 };
 
 export const authSlice = createSlice({
@@ -29,7 +33,26 @@ export const authSlice = createSlice({
         //     state.showPopup = action.payload;
         //     return state;
         // },
-    }
+    },
+    extraReducers: builder => {
+        builder
+            .addCase(onLogin.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(onLogin.fulfilled, (state, { payload }) => {
+                // state.token = payload.token;
+                state.token = '';
+                state.isAuthorized = true;
+                state.isLoading = false;
+                // state.secret = payload.secret;
+                // state.userId = payload.user_id;
+                // session_manager.setToken(payload.token);
+                // session_manager.setPublicStr(payload.secret);
+            })
+            .addCase(onLogin.rejected, (state) => {
+                state.isLoading = false;
+            });
+    },
 });
 
 const { reducer, actions } = authSlice;

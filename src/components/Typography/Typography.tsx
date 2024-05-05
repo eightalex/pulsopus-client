@@ -15,6 +15,6 @@ export interface ITypographyProps extends TypographyProps<ElementType, {}> {
     color?: TTypographyColorType;
 }
 
-const Typography: FC<ITypographyProps> = ({ color = 'primary', ...rest }) => <MuiTypography {...rest}
-                                                                                          color={`typography.${color}`}/>;
+const Typography: FC<ITypographyProps> = ({ color = 'typography.primary', ...rest }) =>
+    <MuiTypography {...rest} color={color}/>;
 export default Typography;

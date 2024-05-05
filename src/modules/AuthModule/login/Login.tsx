@@ -5,6 +5,8 @@ import { LoginForm } from "@/modules/AuthModule/login/LoginForm.tsx";
 import Button from "@mui/material/Button";
 import { GoogleIcon, MicrosoftIcon, TIcon } from '@/icons';
 import { EAuthSignType } from "@/constants/EAuth.ts";
+import { getIsLoading } from "@/stores/auth";
+import { useSelector } from "@/hooks";
 
 const authSignList: { icon: TIcon; type: EAuthSignType; }[] = [
     { icon: MicrosoftIcon, type: EAuthSignType.MICROSOFT },
@@ -12,11 +14,13 @@ const authSignList: { icon: TIcon; type: EAuthSignType; }[] = [
 ];
 
 export const Login = () => {
-    // const {
-    //     rootStore: {
-    //         authStore: {isLoadingAuth, onSign}
-    //     },
-    // } = useStores();
+    const isLoading = useSelector(getIsLoading);
+    const onSign = (type: EAuthSignType) => {
+        if(!type) {
+            throw new Error('Unexpected exception. Type cannot be empty ');
+        }
+        alert(`Sign width ${type} no implemented!`);
+    };
 
     return (
         <Stack pt={2} spacing={8}>
@@ -31,7 +35,7 @@ export const Login = () => {
             <Stack spacing={2}>
                 {authSignList.map(({ type, icon: Icon }) => (
                     <Button
-                        disabled={isLoadingAuth}
+                        disabled={true || isLoading}
                         key={type}
                         onClick={() => onSign(type)}
                         size='medium'
