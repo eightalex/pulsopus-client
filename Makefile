@@ -2,7 +2,7 @@ up:
 	docker-compose up -d --build
 
 stop:
-	docker stop pulsopus
+	docker stop pulsopus_client
 
 prune:
 	docker system prune \
