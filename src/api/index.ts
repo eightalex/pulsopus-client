@@ -1,3 +1,1 @@
-import APIRequester from './APIRequester';
-
-export default APIRequester;
+export { default, default as api } from './APIRequester';

@@ -1,6 +1,6 @@
 import { FC, memo, ReactNode } from 'react';
-import Header from '@/components/Header';
 import Stack from '@mui/material/Stack';
+import Header from "@/components/Header";
 
 interface IMainLayoutProps {
 	children: ReactNode;

@@ -1,7 +1,7 @@
 import Typography from '@/components/Typography';
 import { TIcon } from '@/icons';
 import Stack from '@mui/material/Stack';
-import { FC, memo, ReactNode, useCallback, useMemo } from 'react';
+import { FC, memo, ReactNode, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { NavLinkStyled } from './styled';
 
@@ -29,7 +29,6 @@ export type TTextVariant =
 	'overline';
 
 export interface INavLinkProps extends IDefaultNavLinkProps {
-	onClick: () => void;
 	isActive?: boolean;
 	disabled?: boolean;
 	children?: (params: INavLinkParams) => ReactNode;
@@ -52,20 +51,20 @@ const variantSizes = {
 };
 
 const NavLink: FC<INavLinkProps> = (props) => {
-	const { to, onClick, isActive, icon: Icon, icon, label, children, textVariant = 'body1', textSize } = props;
+	const { to, isActive, icon, label, children, textVariant = 'body1', textSize, disabled } = props;
 	const location = useLocation();
+
 	const active = useMemo(() => isActive || location.pathname.includes(to), [to, location, isActive]);
 
-	const handleClick = useCallback((e) => {
-		e && e.preventDefault();
-		e && e.stopPropagation();
-		onClick?.();
-	}, [onClick]);
+	const iconComponent = useMemo(() => {
+		if(!icon) return null;
+		const Icon = icon;
+		return <Icon color="inherit"/>;
+	}, [icon]);
 
 	return (
 		<NavLinkStyled
 			to={to}
-			onClick={Boolean(onClick) && handleClick}
 			isActive={active}
 		>
 			{children ? children({ isActive: active, to, label, icon: props.icon }) : (
@@ -73,9 +72,7 @@ const NavLink: FC<INavLinkProps> = (props) => {
 					spacing={3}
 					direction="row"
 				>
-					{Boolean(icon) && (
-						<Icon color="inherit"/>
-					)}
+					{Boolean(iconComponent) && iconComponent}
 					<Typography
 						variant={textVariant}
 						fontSize={textSize || variantSizes[textVariant]}

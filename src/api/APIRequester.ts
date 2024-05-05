@@ -1,23 +1,17 @@
-import { AuthService, DepartmentsService, UsersService } from '@/api/services';
+import { AuthService } from '@/api/services';
 import { API_URL } from '@/config';
-import { EventBus } from '@/helpers/EventBus';
-import { IAPIRequester, IAuthAuthorize } from '@/interfaces';
+import { IAuthAuthorize } from '@/interfaces';
 import { RequestError } from '@/models';
 import axios, { AxiosInstance, CreateAxiosDefaults } from 'axios';
 
-export default class APIRequester implements IAPIRequester {
-	readonly requestErrorBus = new EventBus<RequestError>();
+export default class APIRequester {
 	public readonly authService: AuthService;
-	public readonly usersService: UsersService;
-	public readonly departmentsService: DepartmentsService;
 	protected restInstance: AxiosInstance;
 
 	constructor() {
 		this.restInstance = this.createAxiosInstance();
 
 		this.authService = new AuthService(this.restInstance);
-		this.usersService = new UsersService(this.restInstance);
-		this.departmentsService = new DepartmentsService(this.restInstance);
 	}
 
 	private createAxiosInstance() {
@@ -44,7 +38,6 @@ export default class APIRequester implements IAPIRequester {
 					.find((u) => ['login', 'register'].includes(u));
 
 				if(!error.response) {
-					this.requestErrorBus.publish(requestError);
 					return Promise.reject(error);
 				}
 
@@ -64,12 +57,11 @@ export default class APIRequester implements IAPIRequester {
 						await this.authService.clearTokens();
 						//TODO: how to get router instance ?
 						// router.push({path: "/login"})
-						
+
 						// @ts-expect-error: _error typeof unknown
 						return Promise.reject(_error.response);
 					}
 				}
-				this.requestErrorBus.publish(requestError);
 				return Promise.reject(error.response);
 			}
 		);

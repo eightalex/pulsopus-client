@@ -1,13 +1,20 @@
 import Typography from '@/components/Typography';
 import { HomePageContent } from '@/pages/HomePage/HomePageContent';
+import { useDispatch } from "@/hooks";
+import { memo, useCallback } from "react";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { observer } from 'mobx-react';
-import { useStores } from "@/hooks";
+import { actions } from '@/stores/popup';
 import { WrapperStyled } from "./styled.tsx";
+import { EPopupType } from "@/interfaces/IPopupStore.ts";
 
-const HomePage = observer(() => {
-	const { rootStore: { authStore: { handleOpenAuth } } } = useStores();
+const HomePage = memo(() => {
+	const dispatch = useDispatch();
+	
+	const handleOpenAuth = useCallback(() => {
+		dispatch(actions.setOpenPopup(EPopupType.AUTH));
+	}, [dispatch]);
+
 	return (
 		<WrapperStyled>
 			<Stack flexGrow={1}>
