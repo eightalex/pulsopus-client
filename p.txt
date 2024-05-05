@@ -1,4 +1,4 @@
-#pulopus pages
+#pulopus-client
 ssh root@164.90.209.207
 F!#c3xLFvS^+sv8q
 

@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  pulsopus:
+  pulsopus_client:
     container_name: pulsopus_client
     build: .
     ports:
