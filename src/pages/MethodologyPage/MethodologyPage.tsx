@@ -1,12 +1,11 @@
 import Stack from '@mui/material/Stack';
-import { observer } from 'mobx-react';
 
-const MethodologyPage = observer(() => {
+const MethodologyPage = () => {
 	return (
 		<Stack>
 			<span>Methodology page</span>
 		</Stack>
 	);
-});
+};
 
 export default MethodologyPage;

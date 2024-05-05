@@ -1,4 +1,3 @@
-import { observer } from "mobx-react";
 import Stack from "@mui/material/Stack";
 import { Button, TextField } from "@mui/material";
 import { LoadingButton } from "@/components/LoadingButton";
@@ -6,7 +5,6 @@ import { useFormik } from "formik";
 import { loginValidationSchema } from "@/constants/scheme/loginValidationSchema.ts";
 import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
-import { useStores } from "@/hooks";
 import Typography from "@/components/Typography";
 
 const initialValues = {
@@ -14,13 +12,13 @@ const initialValues = {
     password: 'admin',
 };
 
-export const LoginForm = observer(() => {
+export const LoginForm = () => {
     const location = useLocation();
-    const {
-        rootStore: {
-            authStore: { onLogin, isLoadingAuth, handleOpenForgetPassword },
-        },
-    } = useStores();
+    // const {
+    //     rootStore: {
+    //         authStore: { onLogin, isLoadingAuth, handleOpenForgetPassword },
+    //     },
+    // } = useStores();
 
     const formik = useFormik({
         initialValues,
@@ -93,4 +91,4 @@ export const LoginForm = observer(() => {
             </Stack>
         </form>
     );
-});
+};

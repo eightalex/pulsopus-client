@@ -1,31 +1,29 @@
-import {observer} from "mobx-react";
 import Stack from "@mui/material/Stack";
 import Typography from "@/components/Typography";
-import {LoadingButton} from "@/components/LoadingButton";
-import {LighthouseIcon} from '@/icons'
-import {useStores} from "@/hooks";
-import {useCallback} from "react";
-import Button from "@mui/material/Button";
+import { LoadingButton } from "@/components/LoadingButton";
+import { LighthouseIcon } from '@/icons';
+import { useCallback } from "react";
 
-export const UnauthorizedSent = observer(() => {
-    const {
-        rootStore: {
-            modalsStore: {
-                userAuth: { onClose },
-            },
-            authStore: { resetAuthState },
-        },
-    } = useStores();
+export const UnauthorizedSent = () => {
+    // const {
+    //     rootStore: {
+    //         modalsStore: {
+    //             userAuth: { onClose },
+    //         },
+    //         authStore: { resetAuthState },
+    //     },
+    // } = useStores();
 
     const handleClose = useCallback(() => {
-        onClose();
-        resetAuthState();
-    }, [onClose, resetAuthState])
+        // onClose();
+        // resetAuthState();
+    // }, [onClose, resetAuthState]);
+    }, []);
 
     return (
         <Stack pt={2} spacing={8}>
             <Stack alignItems="center">
-                <LighthouseIcon sx={{width: 90, height: 80}}/>
+                <LighthouseIcon sx={{ width: 90, height: 80 }}/>
             </Stack>
             <Stack spacing={8.4}>
                 <Typography
@@ -54,4 +52,4 @@ export const UnauthorizedSent = observer(() => {
             </LoadingButton>
         </Stack>
     );
-})
+};

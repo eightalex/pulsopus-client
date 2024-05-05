@@ -1,12 +1,11 @@
 import Stack from '@mui/material/Stack';
-import { observer } from 'mobx-react';
 
-const UserCasesPage = observer(() => {
+const UserCasesPage = () => {
 	return (
 		<Stack>
 			<span>UserCasesPage</span>
 		</Stack>
 	);
-});
+};
 
 export default UserCasesPage;

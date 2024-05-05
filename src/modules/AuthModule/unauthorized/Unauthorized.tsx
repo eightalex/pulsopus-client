@@ -1,28 +1,26 @@
-import {observer} from "mobx-react";
 import Stack from "@mui/material/Stack";
 import Typography from "@/components/Typography";
-import {TextField} from "@mui/material";
-import {LoadingButton} from "@/components/LoadingButton";
-import {useFormik} from "formik";
-import {object} from "yup";
-import {emailValidationSchema} from "@/constants/scheme/emailValidationSchema.ts";
-import {useStores} from "@/hooks";
-import {useMemo} from "react";
-import {LighthouseIcon} from '@/icons'
+import { TextField } from "@mui/material";
+import { LoadingButton } from "@/components/LoadingButton";
+import { useFormik } from "formik";
+import { object } from "yup";
+import { emailValidationSchema } from "@/constants/scheme/emailValidationSchema.ts";
+import { useMemo } from "react";
+import { LighthouseIcon } from '@/icons';
 
 const initialValues = {
     email: '',
 };
-export const Unauthorized = observer(() => {
-    const {
-        rootStore: {
-            authStore: {isLoadingAuth, onSendAdmin},
-        },
-    } = useStores();
+export const Unauthorized = () => {
+    // const {
+    //     rootStore: {
+    //         authStore: { isLoadingAuth, onSendAdmin },
+    //     },
+    // } = useStores();
 
     const formik = useFormik({
         initialValues,
-        validationSchema: object({email: emailValidationSchema}),
+        validationSchema: object({ email: emailValidationSchema }),
         onSubmit: (values) => {
             onSendAdmin(values.email);
         },
@@ -37,7 +35,7 @@ export const Unauthorized = observer(() => {
     return (
         <Stack pt={2} spacing={8}>
             <Stack alignItems="center">
-                <LighthouseIcon sx={{ width: 90, height: 80}}/>
+                <LighthouseIcon sx={{ width: 90, height: 80 }}/>
             </Stack>
             <Stack spacing={8.4}>
                 <Typography
@@ -79,4 +77,4 @@ export const Unauthorized = observer(() => {
             </form>
         </Stack>
     );
-})
+};
