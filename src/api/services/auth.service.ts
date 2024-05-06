@@ -1,28 +1,36 @@
-// import { LocalService } from '@/api/services';
+import { LocalService } from '@/api/services';
 import { AxiosInstance } from 'axios';
-
-// import db from '../../../db/MockDB';
+import { IAuthCredential, IAuthReturnData, IAuthTokensData } from "@/interfaces/IAuthStore.ts";
 
 export class AuthService {
-	// private readonly local = new LocalService();
+	private readonly local = new LocalService();
 
 	constructor(private readonly restInstance: AxiosInstance) {}
 
-	public async getTokens(): Promise<{ accessToken: string, refreshToken: string }> {
-		// return {
-		// 	accessToken: this.local.getAccessToken(),
-		// 	refreshToken: this.local.getRefreshToken(),
-		// };
+	public async setTokens({ accessToken, refreshToken }: IAuthTokensData) {
+		this.local.setAccessToken(accessToken);
+		this.local.setRefreshToken(refreshToken);
+	}
+
+	public async getTokens(): Promise<IAuthTokensData> {
 		return {
-			accessToken: '',
-			refreshToken: '',
+			accessToken: this.local.getAccessToken(),
+			refreshToken: this.local.getRefreshToken(),
 		};
 	}
-	//
-	// public async setTokens({ accessToken, refreshToken }: IAuthAuthorize) {
-	// 	this.local.setAccessToken(accessToken);
-	// 	this.local.setRefreshToken(refreshToken);
-	// }
+
+	public async onAuthorize():  Promise<IAuthReturnData> {
+		const { data } = await this.restInstance.get<IAuthReturnData>('/auth');
+		await this.setTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken });
+		return data;
+	}
+
+	public async onLogin(credential: IAuthCredential):  Promise<IAuthReturnData> {
+		const { data } = await this.restInstance.post<IAuthReturnData>('/auth/login', credential);
+		await this.setTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken });
+		return data;
+	}
+
 	//
 	// public async clearTokens() {
 	// 	this.local.setAccessToken('');

@@ -85,6 +85,7 @@ export default defineConfig({
     },
     define: {
         PACKAGE_VERSION: JSON.stringify(process.env.npm_package_version),
-        API_URL: JSON.stringify(process.env.VITE_API_URL)
+        API_URL: JSON.stringify(process.env.VITE_API_URL),
+        APP_URL: JSON.stringify(process.env.VITE_APP_URL)
     },
 });

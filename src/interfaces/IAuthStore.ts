@@ -12,3 +12,11 @@ export interface IAuthCredential {
     password: string;
     redirect?: string;
 }
+
+export interface IAuthTokensData {
+    accessToken: string;
+    refreshToken: string;
+}
+export interface IAuthReturnData extends IAuthTokensData {
+    userId?: string;
+}

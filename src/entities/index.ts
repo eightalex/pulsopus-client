@@ -1,1 +1,0 @@
-export { WindowEntity } from './WindowEntity';
