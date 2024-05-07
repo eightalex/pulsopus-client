@@ -8,7 +8,7 @@ module.exports = {
     ],
     ignorePatterns: ['dist', '.eslintrc.cjs'],
     parser: '@typescript-eslint/parser',
-    plugins: ['react-refresh'],
+    plugins: ['react-refresh', 'simple-import-sort'],
     rules: {
         'no-underscore-dangle': 0,
         'no-plusplus': 0,
@@ -46,6 +46,28 @@ module.exports = {
         }],
         "no-else-return": "error",
         "@typescript-eslint/semi": ["error", "always", {"omitLastInOneLineClassBody": true}],
-        "@typescript-eslint/object-curly-spacing": ["error", "always"]
+        "@typescript-eslint/object-curly-spacing": ["error", "always"],
+        //
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
     },
+    "overrides": [
+        {
+            "files": ["*.js", "*.ts"],
+            "rules": {
+                "simple-import-sort/imports": [
+                    "error",
+                    {
+                        "groups": [
+                            [
+                                "^\\u0000", "^\\w", "^@?\\w", "^(@)(/.*|$)",
+                                "^\\.\\.(?!/?$)", "^\\.\\./?$",
+                                "^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"
+                            ],
+                        ]
+                    }
+                ],
+            }
+        }
+    ]
 }
