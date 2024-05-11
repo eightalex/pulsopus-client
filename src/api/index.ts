@@ -1,1 +1,1 @@
-export { default, default as api } from './APIRequester';
+export { default as api,default } from './APIRequester';

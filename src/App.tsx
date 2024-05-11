@@ -1,9 +1,10 @@
-import { DOCUMENTS_TITLES } from '@/constants/routes';
-import { routes } from '@/routes';
 import { Box } from '@mui/material';
 import { useEffect } from 'react';
 import { useLocation, useRoutes } from 'react-router-dom';
+
+import { DOCUMENTS_TITLES } from '@/constants/routes';
 import { useDispatch } from "@/hooks";
+import { routes } from '@/routes';
 import { onAuthorize } from "@/stores/auth";
 
 const App = () => {

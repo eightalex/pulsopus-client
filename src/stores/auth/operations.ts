@@ -1,8 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import Api from '@/api';
-import { IAuthCredential } from "@/interfaces/IAuthStore.ts";
-
-const api = new Api();
+import api from '@/api';
+import { IAuthCredential, IAuthTokensData } from "@/interfaces/IAuthStore.ts";
 
 export const onAuthorize = createAsyncThunk(
   'auth/authorize',
@@ -23,10 +21,10 @@ export const onAuthorize = createAsyncThunk(
   }
 );
 
-export const onLogin = createAsyncThunk<any, IAuthCredential>(
+export const onLogin = createAsyncThunk<IAuthTokensData, IAuthCredential>(
   'auth/login',
-  async (credential, thunkApi) => {
-    console.info('>> @/auth/login');
+  async ({ redirect = '', ...credential }, thunkApi) => {
+    console.log('redirect', redirect);
       try {
         console.log('credential', credential);
         const data = await api.authService.onLogin(credential);

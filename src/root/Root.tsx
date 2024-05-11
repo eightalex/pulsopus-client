@@ -1,11 +1,12 @@
-import { createBrowserHistory } from 'history';
-import { NotificationContainer } from '@/root/NotificationContainer.tsx';
-import Theme from '@/theme';
-import { FC, memo, ReactElement } from 'react';
-import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import type { History } from "@remix-run/router";
+import { createBrowserHistory } from 'history';
+import { FC, memo, ReactElement } from 'react';
 import { Provider } from 'react-redux';
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
+
+import { NotificationContainer } from '@/root/NotificationContainer.tsx';
 import store from '@/stores';
+import Theme from '@/theme';
 
 interface IRoot {
     children: ReactElement;
