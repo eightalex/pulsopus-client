@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import api from '@/api';
 import sessionManager from '@/api/SessionManager.ts';
-import { APP_URL } from "@/config.ts";
 import { EAuthStage } from "@/constants/EAuth.ts";
 import { IAuthStore } from "@/interfaces/IAuthStore.ts";
 import { onAuthorize, onLogin } from "@/stores/auth/operations.ts";
@@ -18,7 +18,8 @@ export const authSlice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(onAuthorize.pending, (state) => {
-                state.isLoading = true;
+                state.isLoading = false;
+                state.isAuthorized = false;
             })
             .addCase(onAuthorize.fulfilled, (state, { payload }) => {
                 sessionManager.setToken(payload.accessToken);
@@ -27,6 +28,7 @@ export const authSlice = createSlice({
             })
             .addCase(onAuthorize.rejected, (state) => {
                 state.isLoading = false;
+                state.isAuthorized = false;
             })
             .addCase(onLogin.pending, (state) => {
                 state.isLoading = true;
@@ -35,11 +37,11 @@ export const authSlice = createSlice({
                 sessionManager.setToken(payload.accessToken);
                 state.isAuthorized = true;
                 state.isLoading = false;
-                const redirectPath = `${APP_URL}?token=${payload.accessToken}`;
-                window.location.replace(redirectPath);
+                api.authService.redirectApp();
             })
             .addCase(onLogin.rejected, (state) => {
                 state.isLoading = false;
+                state.isAuthorized = false;
             });
     },
 });

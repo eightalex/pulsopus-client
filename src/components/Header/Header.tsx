@@ -1,15 +1,17 @@
-import { NavLink } from '@/components/NavLink';
-import { ROOT_ROUTE } from '@/constants/routes';
-import { LogoIcon } from '@/icons';
-import Stack from '@mui/material/Stack';
-import { Link as ReactRouterLink } from 'react-router-dom';
 import { Button } from "@mui/material";
-import { navDisabledByPath, navLabelByPath, navLinks } from "@/constants/nav.ts";
+import Stack from '@mui/material/Stack';
 import { memo, useCallback } from 'react';
+import { Link as ReactRouterLink } from 'react-router-dom';
+
+import api from '@/api';
+import { NavLink } from '@/components/NavLink';
+import { navDisabledByPath, navLabelByPath, navLinks } from "@/constants/nav.ts";
+import { ROOT_ROUTE } from '@/constants/routes';
 import { useDispatch, useSelector } from "@/hooks";
+import { LogoIcon } from '@/icons';
+import { EPopupType } from "@/interfaces/IPopupStore.ts";
 import { getIsAuthorized } from "@/stores/auth";
 import { actions as popupActions } from "@/stores/popup";
-import { EPopupType } from "@/interfaces/IPopupStore.ts";
 
 const Header = memo(() => {
 	const dispatch = useDispatch();
@@ -17,7 +19,7 @@ const Header = memo(() => {
 
 	const handleOpenAuth = useCallback(() => {
 		if(isAuthorized) {
-			alert('redirect to app');
+			api.authService.redirectApp();
 			return;
 		}
 		dispatch(popupActions.setOpenPopup(EPopupType.AUTH));
