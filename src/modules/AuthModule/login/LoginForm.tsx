@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from "@/hooks";
 import { getIsLoading, onLogin } from '@/stores/auth';
 
 const initialValues = {
-    email: 'admin@pulsopus.com',
-    password: 'admin',
+    email: 'admin@pulsopus.dev',
+    password: 'password',
 };
 
 export const LoginForm = () => {
