@@ -4,6 +4,7 @@ export interface IAuthStore {
     isAuthorized: boolean;
     isLoading: boolean;
     stage: EAuthStage;
+    credential?: IAuthCredential,
 }
 
 export interface IAuthCredential {

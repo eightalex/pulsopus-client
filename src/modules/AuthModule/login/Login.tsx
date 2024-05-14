@@ -1,12 +1,13 @@
-import Stack from "@mui/material/Stack";
-import Divider from "@mui/material/Divider";
-import Typography from "@/components/Typography";
-import { LoginForm } from "@/modules/AuthModule/login/LoginForm.tsx";
 import Button from "@mui/material/Button";
-import { GoogleIcon, MicrosoftIcon, TIcon } from '@/icons';
+import Divider from "@mui/material/Divider";
+import Stack from "@mui/material/Stack";
+
+import Typography from "@/components/Typography";
 import { EAuthSignType } from "@/constants/EAuth.ts";
-import { getIsLoading } from "@/stores/auth";
 import { useSelector } from "@/hooks";
+import { GoogleIcon, MicrosoftIcon, TIcon } from '@/icons';
+import { LoginForm } from "@/modules/AuthModule/login/LoginForm.tsx";
+import { selectIsLoading } from "@/stores/auth";
 
 const authSignList: { icon: TIcon; type: EAuthSignType; }[] = [
     { icon: MicrosoftIcon, type: EAuthSignType.MICROSOFT },
@@ -14,7 +15,7 @@ const authSignList: { icon: TIcon; type: EAuthSignType; }[] = [
 ];
 
 export const Login = () => {
-    const isLoading = useSelector(getIsLoading);
+    const isLoading = useSelector(selectIsLoading);
     const onSign = (type: EAuthSignType) => {
         if(!type) {
             throw new Error('Unexpected exception. Type cannot be empty ');

@@ -128,4 +128,5 @@ export interface ITypographyColors {
 	primaryLight: string;
 	success: string;
 	hide: string;
+	error: string;
 }

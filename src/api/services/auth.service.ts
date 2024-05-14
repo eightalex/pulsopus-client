@@ -26,4 +26,9 @@ export class AuthService {
 			.post<IAuthReturnData>('/auth/login', credential)
 			.then(({ data }) => data);
 	}
+
+	public async onRequestAccess(recipient: string, credential: IAuthCredential):  Promise<void> {
+		await this.restInstance
+			.post<IAuthReturnData>('/auth/request-access', { recipient, ...credential });
+	}
 }

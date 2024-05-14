@@ -47,6 +47,7 @@ const typographyPrimary = allStone400;
 const typographyPrimaryLight = allStone600;
 const typographySuccess = allGreen500;
 const typographyHide = allGray300;
+const typographyError = '#FF6666';
 
 // nav link
 const navLinkColorDefault = allStone400;
@@ -292,4 +293,5 @@ export const typographyColors: ITypographyColors = {
 	primaryLight: typographyPrimaryLight,
 	success: typographySuccess,
 	hide: typographyHide,
+	error: typographyError,
 };

@@ -10,12 +10,12 @@ import { ROOT_ROUTE } from '@/constants/routes';
 import { useDispatch, useSelector } from "@/hooks";
 import { LogoIcon } from '@/icons';
 import { EPopupType } from "@/interfaces/IPopupStore.ts";
-import { getIsAuthorized } from "@/stores/auth";
+import { selectIsAuthorized } from "@/stores/auth";
 import { actions as popupActions } from "@/stores/popup";
 
 const Header = memo(() => {
 	const dispatch = useDispatch();
-	const isAuthorized = useSelector(getIsAuthorized);
+	const isAuthorized = useSelector(selectIsAuthorized);
 
 	const handleOpenAuth = useCallback(() => {
 		if(isAuthorized) {

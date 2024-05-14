@@ -1,28 +1,31 @@
-import Stack from "@mui/material/Stack";
-import Typography from "@/components/Typography";
 import { TextField } from "@mui/material";
-import { LoadingButton } from "@/components/LoadingButton";
+import Stack from "@mui/material/Stack";
 import { useFormik } from "formik";
-import { object } from "yup";
-import { emailValidationSchema } from "@/constants/scheme/emailValidationSchema.ts";
 import { useMemo } from "react";
+import { object } from "yup";
+
+import { LoadingButton } from "@/components/LoadingButton";
+import Typography from "@/components/Typography";
+import { emailValidationSchema } from "@/constants/scheme/emailValidationSchema.ts";
+import { useDispatch, useSelector } from "@/hooks";
 import { LighthouseIcon } from '@/icons';
+import { onSendRequestAccess, selectIsLoading } from "@/stores/auth";
+
+const title = 'This email is not recognized as a registered user.';
+const description = 'If you’re keen on kicking off with Pulsopus, just shoot a quick initiation request over to your admin. Easy as pie!';
 
 const initialValues = {
-    email: '',
+    email: 'admin@pulsopus.com',
 };
 export const Unauthorized = () => {
-    // const {
-    //     rootStore: {
-    //         authStore: { isLoadingAuth, onSendAdmin },
-    //     },
-    // } = useStores();
+    const dispatch = useDispatch();
+    const isLoadingAuth = useSelector(selectIsLoading);
 
     const formik = useFormik({
         initialValues,
         validationSchema: object({ email: emailValidationSchema }),
         onSubmit: (values) => {
-            onSendAdmin(values.email);
+            dispatch(onSendRequestAccess(values.email));
         },
     });
 
@@ -43,11 +46,9 @@ export const Unauthorized = () => {
                     textTransform="uppercase"
                     textAlign='center'
                 >
-                    This email is not recognized as a registered user.
+                    {title}
                 </Typography>
-                <Typography variant="text">
-                    If you’re keen on kicking off with Pulsopus, just shoot a quick initiation request over to your admin. Easy as pie!
-                </Typography>
+                <Typography variant="text">{description}</Typography>
             </Stack>
             <form onSubmit={formik.handleSubmit}>
                 <Stack spacing={4}>

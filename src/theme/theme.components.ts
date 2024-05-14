@@ -1,7 +1,7 @@
-import { extendPalette, typographyColors } from '@/theme/extendPalette';
-import { typographyComponent } from '@/theme/theme.typography';
 import { buttonClasses } from '@mui/material/Button';
 import { createTheme, ThemeOptions } from '@mui/material/styles';
+import { extendPalette, typographyColors } from '@/theme/extendPalette';
+import { typographyComponent } from '@/theme/theme.typography';
 
 const theme = createTheme();
 
@@ -717,8 +717,11 @@ export const components: ThemeOptions['components'] = {
 				// TODO: create color extendPalette variable
 				backgroundColor: '#30313299',
 			},
-			paperWidthSm: {
+			paperWidthXs: {
 				maxWidth: 336,
+			},
+			paperWidthSm: {
+				maxWidth: 408,
 			},
 			paperWidthMd: {
 				maxWidth: 560,

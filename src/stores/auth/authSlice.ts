@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import api from '@/api';
 import sessionManager from '@/api/SessionManager.ts';
 import { EAuthStage } from "@/constants/EAuth.ts";
-import { IAuthStore } from "@/interfaces/IAuthStore.ts";
-import { onAuthorize, onLogin } from "@/stores/auth/operations.ts";
+import { IAuthCredential, IAuthStore } from "@/interfaces/IAuthStore.ts";
+import { onAuthorize, onLogin, onSendRequestAccess } from "@/stores/auth/operations.ts";
 
 const initialState: IAuthStore = {
     isAuthorized: false,
@@ -14,7 +14,25 @@ const initialState: IAuthStore = {
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        setCredential: (state, { payload }: PayloadAction<IAuthCredential>) => {
+            state.credential = payload;
+            return state;
+        },
+        resetStage: (state) => {
+            state.credential = undefined;
+            state.stage = EAuthStage.SIGN_STAGE;
+            return state;
+        },
+        setStage: (state, { payload }: PayloadAction<EAuthStage>) => {
+            state.stage = payload;
+            return state;
+        },
+        setRequestAccessStage: (state) => {
+            state.stage = EAuthStage.REQUEST_ACCESS_STAGE;
+            return state;
+        },
+    },
     extraReducers: builder => {
         builder
             .addCase(onAuthorize.pending, (state) => {
@@ -42,6 +60,17 @@ export const authSlice = createSlice({
             .addCase(onLogin.rejected, (state) => {
                 state.isLoading = false;
                 state.isAuthorized = false;
+            })
+            .addCase(onSendRequestAccess.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(onSendRequestAccess.fulfilled, (state) => {
+                state.isLoading = false;
+                state.stage = EAuthStage.REQUEST_ACCESS_SUCCESS_STAGE;
+            })
+            .addCase(onSendRequestAccess.rejected, (state) => {
+                state.isLoading = false;
+                state.stage = EAuthStage.REQUEST_ACCESS_ERROR_STAGE;
             });
     },
 });
