@@ -7,7 +7,6 @@ export class AuthService {
 	constructor(private readonly restInstance: AxiosInstance) {}
 
 	public redirectApp(redirect?: string) {
-		debugger;
 		if(!sessionManager.token) return;
 		const redirectPath = `${APP_URL}?token=${sessionManager.token}`;
 		if(redirect) {
