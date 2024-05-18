@@ -23,7 +23,6 @@ const history = createBrowserHistory({
 });
 
 const BuildVersion = () => {
-
     if(!IS_DEV) {
         return;
     }
