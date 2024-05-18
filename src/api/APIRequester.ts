@@ -18,7 +18,6 @@ export class APIRequester {
 			withCredentials: false,
 			baseURL: API_URL,
 		} as CreateAxiosDefaults;
-		console.log('API_URL', API_URL);
 
 		const axiosInstance = axios.create(axiosDefaults);
 

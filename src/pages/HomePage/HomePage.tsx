@@ -1,18 +1,19 @@
-import Typography from '@/components/Typography';
-import { HomePageContent } from '@/pages/HomePage/HomePageContent';
-import { useDispatch } from "@/hooks";
-import { memo, useCallback } from "react";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { actions } from '@/stores/popup';
+import { memo, useCallback } from "react";
+
+import Typography from '@/components/Typography';
+import { useDispatch, useSelector } from "@/hooks";
+import { HomePageContent } from '@/pages/HomePage/HomePageContent';
+import { actionAuthGetStart, selectIsAuthorized } from "@/stores/auth";
+
 import { WrapperStyled } from "./styled.tsx";
-import { EPopupType } from "@/interfaces/IPopupStore.ts";
 
 const HomePage = memo(() => {
 	const dispatch = useDispatch();
-	
-	const handleOpenAuth = useCallback(() => {
-		dispatch(actions.setOpenPopup(EPopupType.AUTH));
+
+	const handleGetStart = useCallback(() => {
+		dispatch(actionAuthGetStart());
 	}, [dispatch]);
 
 	return (
@@ -36,7 +37,7 @@ const HomePage = memo(() => {
 					welcome to <br/>our website
 				</Typography>
 				<Button
-					onClick={handleOpenAuth}
+					onClick={handleGetStart}
 					variant="contained"
 				>
 					Get started
