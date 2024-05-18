@@ -1,7 +1,7 @@
 {
   "name": "pulsopus-client",
   "private": true,
-  "version": "0.0.6",
+  "version": "0.0.8",
   "author": "Bohdan Radchenko <radchenkobs@gmail.com>",
   "type": "module",
   "scripts": {
