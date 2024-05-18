@@ -1,6 +1,6 @@
 export const ROOT_ID: string = 'root';
 export const ROOT_ROUTE: string = '/';
-
+export const LOGIN_ROUTE: string = '/login';
 export const ABOUT_ROUTE: string = 'about';
 export const METHODOLOGY_ROUTE: string = 'methodology';
 export const USER_CASES_ROUTE: string = 'cases';
@@ -15,3 +15,6 @@ export const DOCUMENTS_TITLES = {
 	[METHODOLOGY_ROUTE]: METHODOLOGY_ROUTE_TITLE,
 	[USER_CASES_ROUTE]: USER_CASES_ROUTE_TITLE,
 };
+
+export const QUERY_TOKEN = 'token';
+export const QUERY_REDIRECT = 'redirect';

@@ -9,6 +9,7 @@ const initialState: IAuthStore = {
     isAuthorized: false,
     isLoading: false,
     stage: EAuthStage.SIGN_STAGE,
+    redirect: '',
 };
 
 export const authSlice = createSlice({
@@ -17,6 +18,10 @@ export const authSlice = createSlice({
     reducers: {
         setCredential: (state, { payload }: PayloadAction<IAuthCredential>) => {
             state.credential = payload;
+            return state;
+        },
+        setRedirect: (state, { payload }: PayloadAction<IAuthStore["redirect"]>) => {
+            state.redirect = payload;
             return state;
         },
         resetStage: (state) => {
@@ -55,7 +60,7 @@ export const authSlice = createSlice({
                 sessionManager.setToken(payload.accessToken);
                 state.isAuthorized = true;
                 state.isLoading = false;
-                api.authService.redirectApp();
+                api.authService.redirectApp(state.redirect);
             })
             .addCase(onLogin.rejected, (state) => {
                 state.isLoading = false;

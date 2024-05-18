@@ -1,6 +1,7 @@
 import { AxiosInstance } from 'axios';
 import sessionManager from '@/api/SessionManager.ts';
 import { APP_URL } from "@/config.ts";
+import { QUERY_REDIRECT, QUERY_TOKEN } from "@/constants/routes.ts";
 import { IAuthCredential, IAuthReturnData } from "@/interfaces/IAuthStore.ts";
 
 export class AuthService {
@@ -8,11 +9,15 @@ export class AuthService {
 
 	public redirectApp(redirect?: string) {
 		if(!sessionManager.token) return;
-		const redirectPath = `${APP_URL}?token=${sessionManager.token}`;
+		const params = {} as { [QUERY_TOKEN]?: string, [QUERY_REDIRECT]?: string };
+		params[QUERY_TOKEN] = sessionManager.token;
 		if(redirect) {
-			redirectPath.concat(`?${redirect}`);
+			params[QUERY_REDIRECT] = redirect;
 		}
-		window.location.replace(redirectPath);
+		params[QUERY_REDIRECT] = '/person';
+		const query = new URLSearchParams(params).toString();
+		if(!query) return;
+		window.location.replace(`${APP_URL}?${query}`);
 	}
 
 	public async onAuthorize():  Promise<IAuthReturnData> {

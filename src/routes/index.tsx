@@ -1,12 +1,17 @@
 import { lazy } from 'react';
+import { Navigate, Outlet, RouteObject } from 'react-router-dom';
+
 import { MainLayout } from '@/components/Layout';
 import LazyLoader from '@/components/LazyLoader';
-import { Navigate, Outlet, RouteObject } from 'react-router-dom';
-import { ABOUT_ROUTE, METHODOLOGY_ROUTE, ROOT_ID, ROOT_ROUTE, USER_CASES_ROUTE } from '@/constants/routes';
+import { ABOUT_ROUTE, LOGIN_ROUTE, METHODOLOGY_ROUTE, ROOT_ID, ROOT_ROUTE, USER_CASES_ROUTE } from '@/constants/routes';
 import AuthModule from '@/modules/AuthModule';
 
 const HomePage = LazyLoader(
 	lazy(() => import(/* webpackChunkName: 'home page' */ '../pages/HomePage'))
+);
+
+const LoginPage = LazyLoader(
+	lazy(() => import(/* webpackChunkName: 'login page' */ '../pages/LoginPage'))
 );
 
 const AboutPage = LazyLoader(
@@ -35,6 +40,10 @@ export const routes: RouteObject[] = [
 			{
 				index: true,
 				element: <HomePage/>,
+			},
+			{
+				path: LOGIN_ROUTE,
+				element: <LoginPage/>,
 			},
 			{
 				path: ABOUT_ROUTE,

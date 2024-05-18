@@ -3,9 +3,9 @@ import Stack from '@mui/material/Stack';
 import { memo, useCallback } from "react";
 
 import Typography from '@/components/Typography';
-import { useDispatch, useSelector } from "@/hooks";
+import { useDispatch } from "@/hooks";
 import { HomePageContent } from '@/pages/HomePage/HomePageContent';
-import { actionAuthGetStart, selectIsAuthorized } from "@/stores/auth";
+import { actionAuthGetStart } from "@/stores/auth";
 
 import { WrapperStyled } from "./styled.tsx";
 
