@@ -233,6 +233,24 @@ export const components: ThemeOptions['components'] = {
 					borderColor: extendPalette.buttonContainedPrimaryDisabled,
 				},
 			},
+			containedError: {
+				color: extendPalette.buttonContainedErrorOnSurfaceDefault,
+				backgroundColor: extendPalette.buttonContainedErrorDefault,
+				['&:hover']: {
+					backgroundColor: extendPalette.buttonContainedErrorHovered,
+				},
+				['&:active']: {
+					backgroundColor: extendPalette.buttonContainedErrorPressed,
+				},
+				['&.MuiButton-active']: {
+					backgroundColor: extendPalette.buttonContainedErrorPressed,
+				},
+				['&.Mui-disabled']: {
+					color: extendPalette.buttonContainedErrorOnSurfaceDisabled,
+					backgroundColor: extendPalette.buttonContainedErrorDisabled,
+					borderColor: extendPalette.buttonContainedErrorDisabled,
+				},
+			},
 			outlinedPrimary: {
 				backgroundColor: extendPalette.buttonOutlinedPrimaryDefault,
 				color: extendPalette.buttonOutlinedPrimaryOnSurfaceDefault,

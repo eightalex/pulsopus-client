@@ -21,3 +21,5 @@ export const allGray600 = '#303132';
 export const allGray700 = '#1C1C1C';
 export const AllStone750 = '#1B1B1B';
 export const allGray800 = '#0E0E0E';
+
+export const allRed300 = '#F44F4F';

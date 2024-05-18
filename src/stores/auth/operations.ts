@@ -1,7 +1,9 @@
 import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import api from '@/api';
 import { IAuthCredential, IAuthReturnData, IAuthTokensData } from "@/interfaces/IAuthStore.ts";
+import { IRootState } from "@/interfaces/IRootStore.ts";
 import { actions } from './authSlice.ts';
 
 export const onAuthorize = createAsyncThunk<IAuthReturnData, void>(
@@ -32,10 +34,14 @@ export const onLogin = createAsyncThunk<IAuthTokensData, IAuthCredential>(
             return thunkApi.fulfillWithValue(data);
         } catch (err) {
             const error = err as Error;
+            const axError = err as AxiosError;
             console.error('[onLogin]: ', error);
-            if ((err as AxiosError).status === 403) {
+            if (axError.status === 403) {
                 thunkApi.dispatch(actions.setCredential(credential));
                 thunkApi.dispatch(actions.setRequestAccessStage());
+            }
+            if (![403].includes(axError.status as number)) {
+                toast.error(error.data.message || error.message);
             }
             return thunkApi.rejectWithValue(error.message);
         }
@@ -46,16 +52,17 @@ export const onSendRequestAccess = createAsyncThunk<IAuthCredential, string>(
     'auth/request-access',
     async (recipient, thunkApi) => {
         try {
-            const credential = thunkApi.getState().auth.credential;
+            const credential = (thunkApi.getState() as IRootState).auth.credential;
             if (!credential) {
                 throw new Error('Unexpected exception auth/request-access. No credential');
             }
             await api.authService.onRequestAccess(recipient, credential as IAuthCredential);
             return thunkApi.fulfillWithValue(credential as IAuthCredential);
         } catch (err) {
-              const error = err as Error;
-              console.error('[onSendRequestAccess]: ', error);
-              return thunkApi.rejectWithValue(error.message);
+            const error = err as Error;
+            console.error('[onSendRequestAccess]: ', error);
+            toast.error(error.data.message || error.message);
+            return thunkApi.rejectWithValue(error.message);
         }
     }
 );

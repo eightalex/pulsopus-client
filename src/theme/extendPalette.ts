@@ -10,7 +10,7 @@ import {
 	allGreen200,
 	allGreen400,
 	allGreen500,
-	allGreen800,
+	allGreen800, allRed300,
 	allStone400,
 	allStone500,
 	allStone600,
@@ -31,7 +31,7 @@ const iconColorSuccess = allGreen500;
 const iconColorSecondary = allGray200;
 const iconColorAction = allGray200;
 const iconColorInfo = allGray200;
-const iconColorCritical = allGray200;
+const iconColorCritical = allRed300;
 const iconColorAccent = allGray200;
 const iconColorAccentLight = allGray200;
 const iconColorWarning = allGray200;
@@ -55,13 +55,20 @@ const navLinkColorActive = allGreen500;
 const navLinkColorHover = allGreen400;
 const navLinkColorPressed = allGreen800;
 
-// button - contained
+// button - contained primary
 const buttonContainedPrimaryDefault = allGreen500;
 const buttonContainedPrimaryHovered = `${allGreen500}66`;
 const buttonContainedPrimaryPressed = buttonContainedPrimaryHovered;
 const buttonContainedPrimaryDisabled = allGreen200;
 const buttonContainedPrimaryOnSurfaceDefault = allStone400;
 const buttonContainedPrimaryOnSurfaceDisabled = allStone600;
+// button - contained error
+const buttonContainedErrorDefault = allRed300;
+const buttonContainedErrorHovered = `${allRed300}66`;
+const buttonContainedErrorPressed = buttonContainedErrorHovered;
+const buttonContainedErrorDisabled = allGreen200;
+const buttonContainedErrorOnSurfaceDefault = allStone400;
+const buttonContainedErrorOnSurfaceDisabled = allStone600;
 // button - outlined primary
 const buttonOutlineDefault = allGreen200;
 const buttonOutlinedPrimaryDefault = 'transparent';
@@ -197,6 +204,13 @@ export const extendPalette: IExtendPalette = {
 	buttonContainedPrimaryDisabled,
 	buttonContainedPrimaryOnSurfaceDefault,
 	buttonContainedPrimaryOnSurfaceDisabled,
+	//
+	buttonContainedErrorDefault,
+	buttonContainedErrorHovered,
+	buttonContainedErrorPressed,
+	buttonContainedErrorDisabled,
+	buttonContainedErrorOnSurfaceDefault,
+	buttonContainedErrorOnSurfaceDisabled,
 	//
 	buttonOutlineDefault,
 	buttonOutlinedPrimaryDefault,

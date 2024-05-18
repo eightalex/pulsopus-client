@@ -15,7 +15,7 @@ const title = 'This email is not recognized as a registered user.';
 const description = 'If you’re keen on kicking off with Pulsopus, just shoot a quick initiation request over to your admin. Easy as pie!';
 
 const initialValues = {
-    email: 'admin@pulsopus.com',
+    email: 'admin@pulsopus.dev',
 };
 export const Unauthorized = () => {
     const dispatch = useDispatch();

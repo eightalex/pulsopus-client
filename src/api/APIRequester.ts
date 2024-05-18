@@ -24,7 +24,6 @@ export class APIRequester {
 			async request => {
 				const token = sessionManager.token;
 				if(token) {
-					console.log('token', token);
 					request.headers['Authorization'] = `Bearer ${token}`;
 				}
 				return request;
@@ -43,7 +42,7 @@ export class APIRequester {
 				if (error.response && error.response.status === 401) {
 					// dev p2p interceptors
 					if (IS_DEV) {
-						alert('401 error ' + JSON.stringify(error.response, null, 4));
+						// alert('401 error ' + JSON.stringify(error.response, null, 4));
 					}
 				}
 				// const originalConfig = error.config;

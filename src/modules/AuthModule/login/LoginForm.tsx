@@ -12,8 +12,8 @@ import { onLogin,selectIsLoading } from '@/stores/auth';
 
 const initialValues = {
     // email: 'admin@pulsopus.dev',
-    // email: 'user@pulsopus.dev',
-    email: 'member@pulsopus.dev',
+    // email: 'viewer@pulsopus.dev',
+    email: 'user@pulsopus.dev',
     password: 'password',
 };
 

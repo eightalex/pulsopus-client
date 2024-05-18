@@ -49,6 +49,7 @@ export const UnauthorizedSentError = () => {
                     onClick={handleClose}
                     variant={'contained'}
                     size='medium'
+                    color='error'
                 >
                     <Typography
                         variant='text'
