@@ -5,6 +5,7 @@
   "author": "Bohdan Radchenko <radchenkobs@gmail.com>",
   "type": "module",
   "scripts": {
+    "start": "vite",
     "dev": "NODE_ENV=development vite",
     "build": "tsc && vite build",
     "build:dev": "NODE_ENV=development vite build",
