@@ -14,7 +14,6 @@ export class AuthService {
 		if(redirect) {
 			params[QUERY_REDIRECT] = redirect;
 		}
-		params[QUERY_REDIRECT] = '/person';
 		const query = new URLSearchParams(params).toString();
 		if(!query) return;
 		window.location.replace(`${APP_URL}?${query}`);
