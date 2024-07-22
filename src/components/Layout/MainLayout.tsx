@@ -1,5 +1,6 @@
-import { FC, memo, ReactNode } from 'react';
 import Stack from '@mui/material/Stack';
+import { FC, memo, ReactNode } from 'react';
+
 import Header from "@/components/Header";
 
 interface IMainLayoutProps {

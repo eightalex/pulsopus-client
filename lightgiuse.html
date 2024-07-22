@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анімація світла маяка</title>
+    <style>
+        .lighthouse {
+            position: relative;
+            width: 90px;
+            height: 80px;
+        }
+
+        .beam {
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: rotateBeam 2s infinite linear;
+        }
+
+        @keyframes rotateBeam {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #light_gradient {
+            animation: light_gradient 2s infinite linear;
+        }
+
+        @keyframes light_gradient {
+            0% {
+                width: 0%;
+                /*transform: rotate(0deg);*/
+            }
+            100% {
+                width: 100%;
+                /*transform: rotate(360deg);*/
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="lighthouse">
+    <svg width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M23.4082 74.7597H31.1012L34.6517 21.1063H30.6728V16.1749H31.8902V16.9639H35.4408V7.29844H33.4682V5.32589L44.5145 0L56.1526 5.32589V7.29844H54.18V16.9639H57.5333V16.1749H58.9239V21.1063H54.969L58.7169 74.7597H66.6071V79.4938H23.4082V74.7597ZM46.82 58.1169H54.0846V73.4533H46.82V58.1169ZM38.748 9.03244V15.7421H43.2211V9.03244C43.2211 9.03244 41.9348 8.07392 40.9846 8.07392C40.0343 8.07392 38.748 9.03244 38.748 9.03244ZM46.8168 15.7421V9.03244C46.8168 9.03244 48.1031 8.07392 49.0534 8.07392C50.0036 8.07392 51.2899 9.03244 51.2899 9.03244V15.7421H46.8168Z" fill="#219653"/>
+    </svg>
+    <svg class="beam" width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path opacity="0.2" d="M89.9985 2.82715L60.5366 10.6052V12.4582L89.9985 16.1455V2.82715Z" fill="#219653"/>
+    </svg>
+    <svg class="beam" width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path opacity="0.8" d="M89.9985 2.82715L60.5366 10.6052V12.4582L89.9985 16.1455V2.82715Z" fill="url(#paint0_linear_1976_51580)"/>
+        <defs>
+            <linearGradient id="paint0_linear_1976_51580" x1="60.0015" y1="11.999" x2="94.0015" y2="9.99902" gradientUnits="userSpaceOnUse">
+                <stop offset="0.472492" stop-color="#219653"/>
+                <stop offset="0.803523" stop-color="#219653" stop-opacity="0.12"/>
+                <stop offset="0.921407" stop-color="#219653" stop-opacity="0"/>
+            </linearGradient>
+        </defs>
+    </svg>
+</div>
+
+<!--1-->
+<div>
+    <svg width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M23.4082 74.7597H31.1012L34.6517 21.1063H30.6728V16.1749H31.8902V16.9639H35.4408V7.29844H33.4682V5.32589L44.5145 0L56.1526 5.32589V7.29844H54.18V16.9639H57.5333V16.1749H58.9239V21.1063H54.969L58.7169 74.7597H66.6071V79.4938H23.4082V74.7597ZM46.82 58.1169H54.0846V73.4533H46.82V58.1169ZM38.748 9.03244V15.7421H43.2211V9.03244C43.2211 9.03244 41.9348 8.07392 40.9846 8.07392C40.0343 8.07392 38.748 9.03244 38.748 9.03244ZM46.8168 15.7421V9.03244C46.8168 9.03244 48.1031 8.07392 49.0534 8.07392C50.0036 8.07392 51.2899 9.03244 51.2899 9.03244V15.7421H46.8168Z" fill="#219653"/>
+    </svg>
+</div>
+<!--2-->
+<div>
+    <svg width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path opacity="0.2" d="M89.9985 2.82715L60.5366 10.6052V12.4582L89.9985 16.1455V2.82715Z" fill="#219653"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M23.4082 74.7597H31.1012L34.6517 21.1063H30.6728V16.1749H31.8902V16.9639H35.4408V7.29844H33.4682V5.32589L44.5145 0L56.1526 5.32589V7.29844H54.18V16.9639H57.5333V16.1749H58.9239V21.1063H54.969L58.7169 74.7597H66.6071V79.4938H23.4082V74.7597ZM46.82 58.1169H54.0846V73.4533H46.82V58.1169ZM38.748 9.03244V15.7421H43.2211V9.03244C43.2211 9.03244 41.9348 8.07392 40.9846 8.07392C40.0343 8.07392 38.748 9.03244 38.748 9.03244ZM46.8168 15.7421V9.03244C46.8168 9.03244 48.1031 8.07392 49.0534 8.07392C50.0036 8.07392 51.2899 9.03244 51.2899 9.03244V15.7421H46.8168Z" fill="#219653"/>
+    </svg>
+</div>
+<!--3-->
+<div>
+    <svg width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path opacity="0.8" d="M89.9985 2.82715L60.5366 10.6052V12.4582L89.9985 16.1455V2.82715Z" fill="url(#paint0_linear_1976_51580)"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M23.408 74.7597H31.1009L34.6515 21.1063H30.6725V16.1749H31.8899V16.9639H35.4405V7.29844H33.468V5.32589L44.5143 0L56.1523 5.32589V7.29844H54.1798V16.9639H57.5331V16.1749H58.9237V21.1063H54.9688L58.7166 74.7597H66.6068V79.4938H23.408V74.7597ZM46.8198 58.1169H54.0844V73.4533H46.8198V58.1169ZM38.7478 9.03244V15.7421H43.2209V9.03244C43.2209 9.03244 41.9346 8.07392 40.9843 8.07392C40.034 8.07392 38.7478 9.03244 38.7478 9.03244ZM46.8166 15.7421V9.03244C46.8166 9.03244 48.1029 8.07392 49.0531 8.07392C50.0034 8.07392 51.2897 9.03244 51.2897 9.03244V15.7421H46.8166Z" fill="#219653"/>
+        <defs>
+            <linearGradient id="paint0_linear_1976_51580" x1="60.0015" y1="11.999" x2="94.0015" y2="9.99902" gradientUnits="userSpaceOnUse">
+                <stop offset="0.472492" stop-color="#219653"/>
+                <stop offset="0.803523" stop-color="#219653" stop-opacity="0.12"/>
+                <stop offset="0.921407" stop-color="#219653" stop-opacity="0"/>
+            </linearGradient>
+        </defs>
+    </svg>
+</div>
+
+
+<!--4-->
+<div>
+    <svg class="light" width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path opacity="0.8" d="M89.9985 2.82715L60.5366 10.6052V12.4582L89.9985 16.1455V2.82715Z" fill="url(#light_gradient)"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M23.408 74.7597H31.1009L34.6515 21.1063H30.6725V16.1749H31.8899V16.9639H35.4405V7.29844H33.468V5.32589L44.5143 0L56.1523 5.32589V7.29844H54.1798V16.9639H57.5331V16.1749H58.9237V21.1063H54.9688L58.7166 74.7597H66.6068V79.4938H23.408V74.7597ZM46.8198 58.1169H54.0844V73.4533H46.8198V58.1169ZM38.7478 9.03244V15.7421H43.2209V9.03244C43.2209 9.03244 41.9346 8.07392 40.9843 8.07392C40.034 8.07392 38.7478 9.03244 38.7478 9.03244ZM46.8166 15.7421V9.03244C46.8166 9.03244 48.1029 8.07392 49.0531 8.07392C50.0034 8.07392 51.2897 9.03244 51.2897 9.03244V15.7421H46.8166Z" fill="#219653"/>
+        <defs>
+            <linearGradient id="light_gradient" x1="60.0015" y1="11.999" x2="94.0015" y2="9.99902" gradientUnits="userSpaceOnUse">
+                <stop offset="0.472492" stop-color="#219653"/>
+                <stop offset="0.803523" stop-color="#219653" stop-opacity="0.12"/>
+                <stop offset="0.921407" stop-color="#219653" stop-opacity="0"/>
+            </linearGradient>
+        </defs>
+    </svg>
+</div>
+
+
+<!--5-->
+<div>
+    <svg class="light" width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path opacity="0.8" d="M89.9985 2.82715L60.5366 10.6052V12.4582L89.9985 16.1455V2.82715Z" fill="url(#light_gradient)">
+<!--            <animate attributeName="width" from="0" to="45" dur="12s" begin="0s" repeatCount="indefinite" />-->
+            <animate attributeName="opacity" from="0" to="1" dur="1s" begin="0s" repeatCount="indefinite" />
+        </path>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M23.408 74.7597H31.1009L34.6515 21.1063H30.6725V16.1749H31.8899V16.9639H35.4405V7.29844H33.468V5.32589L44.5143 0L56.1523 5.32589V7.29844H54.1798V16.9639H57.5331V16.1749H58.9237V21.1063H54.9688L58.7166 74.7597H66.6068V79.4938H23.408V74.7597ZM46.8198 58.1169H54.0844V73.4533H46.8198V58.1169ZM38.7478 9.03244V15.7421H43.2209V9.03244C43.2209 9.03244 41.9346 8.07392 40.9843 8.07392C40.034 8.07392 38.7478 9.03244 38.7478 9.03244ZM46.8166 15.7421V9.03244C46.8166 9.03244 48.1029 8.07392 49.0531 8.07392C50.0034 8.07392 51.2897 9.03244 51.2897 9.03244V15.7421H46.8166Z" fill="#219653"/>
+        <defs>
+            <linearGradient id="light_gradient" x1="60.0015" y1="11.999" x2="94.0015" y2="9.99902" gradientUnits="userSpaceOnUse">
+                <stop offset="0.472492" stop-color="#219653"/>
+                <stop offset="0.803523" stop-color="#219653" stop-opacity="0.12"/>
+                <stop offset="0.921407" stop-color="#219653" stop-opacity="0"/>
+            </linearGradient>
+        </defs>
+    </svg>
+</div>
+
+
+
+<div>
+    <svg width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M23.4082 74.7597H31.1012L34.6517 21.1063H30.6728V16.1749H31.8902V16.9639H35.4408V7.29844H33.4682V5.32589L44.5145 0L56.1526 5.32589V7.29844H54.18V16.9639H57.5333V16.1749H58.9239V21.1063H54.969L58.7169 74.7597H66.6071V79.4938H23.4082V74.7597ZM46.82 58.1169H54.0846V73.4533H46.82V58.1169ZM38.748 9.03244V15.7421H43.2211V9.03244C43.2211 9.03244 41.9348 8.07392 40.9846 8.07392C40.0343 8.07392 38.748 9.03244 38.748 9.03244ZM46.8168 15.7421V9.03244C46.8168 9.03244 48.1031 8.07392 49.0534 8.07392C50.0036 8.07392 51.2899 9.03244 51.2899 9.03244V15.7421H46.8168Z" fill="#219653"/>
+    </svg>
+
+    <svg width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path opacity="0.2" d="M89.9985 2.82715L60.5366 10.6052V12.4582L89.9985 16.1455V2.82715Z" fill="#219653"/>
+        <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 45 40" to="360 45 40" dur="5s" repeatCount="indefinite"/>
+    </svg>
+
+    <svg width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path opacity="0.8" d="M89.9985 2.82715L60.5366 10.6052V12.4582L89.9985 16.1455V2.82715Z" fill="url(#paint0_linear_1976_51580)"/>
+        <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 45 40" to="360 45 40" dur="5s" repeatCount="indefinite"/>
+        <defs>
+            <linearGradient id="paint0_linear_1976_51580" x1="60.0015" y1="11.999" x2="94.0015" y2="9.99902" gradientUnits="userSpaceOnUse">
+                <stop offset="0.472492" stop-color="#219653"/>
+                <stop offset="0.803523" stop-color="#219653" stop-opacity="0.12"/>
+                <stop offset="0.921407" stop-color="#219653" stop-opacity="0"/>
+            </linearGradient>
+        </defs>
+    </svg>
+</div>
+
+
+
+<div>
+    <svg width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M23.4082 74.7597H31.1012L34.6517 21.1063H30.6728V16.1749H31.8902V16.9639H35.4408V7.29844H33.4682V5.32589L44.5145 0L56.1526 5.32589V7.29844H54.18V16.9639H57.5333V16.1749H58.9239V21.1063H54.969L58.7169 74.7597H66.6071V79.4938H23.4082V74.7597ZM46.82 58.1169H54.0846V73.4533H46.82V58.1169ZM38.748 9.03244V15.7421H43.2211V9.03244C43.2211 9.03244 41.9348 8.07392 40.9846 8.07392C40.0343 8.07392 38.748 9.03244 38.748 9.03244ZM46.8168 15.7421V9.03244C46.8168 9.03244 48.1031 8.07392 49.0534 8.07392C50.0036 8.07392 51.2899 9.03244 51.2899 9.03244V15.7421H46.8168Z" fill="#219653"/>
+    </svg>
+
+    <svg width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="45" y="10" width="0" height="10" fill="#219653">
+            <animate attributeName="width" from="0" to="45" dur="1s" begin="0s" repeatCount="indefinite" />
+        </rect>
+        <rect x="45" y="10" width="0" height="10" fill="#219653" opacity="0.8">
+            <animate attributeName="width" from="0" to="45" dur="1s" begin="0.5s" repeatCount="indefinite" />
+        </rect>
+    </svg>
+</div>
+</body>
+</html>

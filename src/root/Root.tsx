@@ -1,19 +1,20 @@
+import { Box } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import type { History } from "@remix-run/router";
 import { createBrowserHistory } from 'history';
-import { FC, memo, ReactElement } from 'react';
+import { memo, useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
+import { unstable_HistoryRouter as HistoryRouter, useLocation, useRoutes } from 'react-router-dom';
 
 import Typography from "@/components/Typography";
 import { IS_DEV, VERSION } from "@/config";
+import { DOCUMENTS_TITLES } from "@/constants/routes.ts";
+import { useDispatch } from "@/hooks";
 import { NotificationContainer } from '@/root/NotificationContainer.tsx';
+import { routes } from "@/routes";
 import store from '@/stores';
+import { onAuthorize } from "@/stores/auth";
 import Theme from '@/theme';
-
-interface IRoot {
-    children: ReactElement;
-}
 
 const ROUTE_BASELINE: string = '/';
 
@@ -39,8 +40,39 @@ const BuildVersion = () => {
     );
 };
 
+const App = () => {
+  const location = useLocation();
+  const element = useRoutes(routes);
+  const dispatch = useDispatch();
 
-const Root: FC<IRoot> = ({ children }) => {
+  useEffect(() => {
+    document.title = DOCUMENTS_TITLES[location.pathname] || DOCUMENTS_TITLES.ROOT_ROUTE;
+  }, [location.pathname]);
+
+  useEffect(() => {
+    dispatch(onAuthorize());
+  }, [dispatch]);
+
+  return (
+    <Box
+      sx={({ palette: { backgroundColorPrimary, typography } }) => ({
+        position: 'relative',
+        width: '100vw',
+        height: '100vh',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: backgroundColorPrimary,
+        color: typography.primary,
+      })}
+    >
+      {element}
+    </Box>
+  );
+};
+
+
+const Root = () => {
     return (
         <Provider store={store}>
             <HistoryRouter
@@ -49,7 +81,7 @@ const Root: FC<IRoot> = ({ children }) => {
             >
                     <Theme>
                         <NotificationContainer/>
-                        {children}
+                        <App/>
                         <BuildVersion/>
                 </Theme>
             </HistoryRouter>
