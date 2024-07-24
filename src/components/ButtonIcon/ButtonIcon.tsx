@@ -1,8 +1,9 @@
-import {TIcon} from '@/icons';
-import MuiIconButton, {IconButtonProps} from '@mui/material/IconButton';
-import {SvgIconProps} from '@mui/material/SvgIcon';
-import MuiTooltip, {TooltipProps} from '@mui/material/Tooltip';
-import {FC, memo, ReactElement, useMemo} from 'react';
+import MuiIconButton, { IconButtonProps } from '@mui/material/IconButton';
+import { SvgIconProps } from '@mui/material/SvgIcon';
+import MuiTooltip, { TooltipProps } from '@mui/material/Tooltip';
+import { FC, memo, ReactElement, useMemo } from 'react';
+
+import { TIcon } from '@/icons';
 
 export interface IButtonIconProps extends IconButtonProps {
     icon: ReactElement | TIcon;
@@ -29,7 +30,7 @@ const ButtonIcon: FC<IButtonIconProps> = (props) => {
         if ('$$typeof' in icon.type) {
             return icon;
         }
-        const {icon: Icon} = props;
+        const { icon: Icon } = props;
         return <Icon {...iconProps} />;
     }, [icon, props, iconProps]);
 

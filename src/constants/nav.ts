@@ -6,10 +6,10 @@ export const navLabelByPath: Record<string, string> = {
     [USER_CASES_ROUTE]: "User cases",
 };
 
-export const navDisabledByPath: Record<string, boolean> = {
-    [ABOUT_ROUTE]: true,
-    [METHODOLOGY_ROUTE]: true,
-    [USER_CASES_ROUTE]: true,
+export const navEnabledByPath: Record<string, boolean> = {
+    [ABOUT_ROUTE]: false,
+    [METHODOLOGY_ROUTE]: false,
+    [USER_CASES_ROUTE]: false,
 };
 
 export const navLinks: string[] = [

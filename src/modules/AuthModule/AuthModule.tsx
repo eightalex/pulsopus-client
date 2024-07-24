@@ -7,17 +7,15 @@ import { EPopupType } from "@/interfaces/IPopupStore.ts";
 import { actions as authActions,selectAuthStage } from "@/stores/auth";
 import { actions as popupActions, getAuthPopupState } from "@/stores/popup";
 
-import { Login } from "./login/Login.tsx";
-import { Unauthorized } from "./unauthorized/Unauthorized.tsx";
-import { UnauthorizedSentError } from "./unauthorized/UnauthorizedSentError.tsx";
-import { UnauthorizedSentSuccess } from "./unauthorized/UnauthorizedSentSuccess.tsx";
+import { RequestAccess, RequestAccessError, RequestAccessSuccess } from "./RequestAccess";
+import { SignIn, SignInEmail } from "./SignIn";
 
 const STAGE_MODULES: Record<keyof typeof EAuthStage, ReactElement> = {
-	[EAuthStage.SIGN_STAGE]: <Login/>,
-	[EAuthStage.REQUEST_ACCESS_STAGE]: <Unauthorized/>,
-	[EAuthStage.REQUEST_ACCESS_SUCCESS_STAGE]: <UnauthorizedSentSuccess/>,
-	[EAuthStage.REQUEST_ACCESS_ERROR_STAGE]: <UnauthorizedSentError/>,
-	[EAuthStage.FORGOT_PASSWORD_STAGE]: <div>{EAuthStage.FORGOT_PASSWORD_STAGE}</div>,
+	[EAuthStage.AUTH_STAGE_SIGN]: <SignIn/>,
+	[EAuthStage.AUTH_STAGE_SIGN_EMAIL]: <SignInEmail/>,
+	[EAuthStage.AUTH_STAGE_REQUEST_ACCESS]: <RequestAccess/>,
+	[EAuthStage.AUTH_STAGE_REQUEST_ACCESS_SUCCESS]: <RequestAccessSuccess/>,
+	[EAuthStage.AUTH_STAGE_REQUEST_ACCESS_ERROR]: <RequestAccessError/>,
 };
 
 const AuthModule = memo(() => {
@@ -34,8 +32,8 @@ const AuthModule = memo(() => {
 		<Dialog
 			open={isOpen}
 			onClose={handleClose}
-			hideClose={stage !== EAuthStage.REQUEST_ACCESS_STAGE}
-			maxWidth={[EAuthStage.SIGN_STAGE, EAuthStage.REQUEST_ACCESS_STAGE].includes(stage) ? 'xs' : 'sm'}
+			hideClose={stage !== EAuthStage.AUTH_STAGE_REQUEST_ACCESS}
+			maxWidth={[EAuthStage.AUTH_STAGE_SIGN, EAuthStage.AUTH_STAGE_SIGN_EMAIL, EAuthStage.AUTH_STAGE_REQUEST_ACCESS].includes(stage) ? 'xs' : 'sm'}
 			fullWidth
 		>
 			{isOpen && stage && STAGE_MODULES[stage]}

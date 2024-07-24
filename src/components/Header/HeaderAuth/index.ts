@@ -1,0 +1,1 @@
+export { HeaderAuth as default, HeaderAuth } from './HeaderAuth.tsx';
