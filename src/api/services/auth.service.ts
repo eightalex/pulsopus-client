@@ -8,15 +8,16 @@ export class AuthService {
 	constructor(private readonly restInstance: AxiosInstance) {}
 
 	public redirectApp(redirect?: string) {
-		if(!sessionManager.token) return;
+		// if(!sessionManager.token) return;
 		const params = {} as { [QUERY_TOKEN]?: string, [QUERY_REDIRECT]?: string };
-		params[QUERY_TOKEN] = sessionManager.token;
+		// params[QUERY_TOKEN] = sessionManager.token;
 		if(redirect) {
 			params[QUERY_REDIRECT] = redirect;
 		}
 		const query = new URLSearchParams(params).toString();
-		if(!query) return;
-		window.location.replace(`${APP_URL}?${query}`);
+		const url = APP_URL;
+		if(query) url.concat(`?${query}`);
+		window.location.replace(url);
 	}
 
 	public async onAuthorize():  Promise<IAuthReturnData> {
@@ -28,6 +29,13 @@ export class AuthService {
 	public async onLogin(credential: IAuthCredential):  Promise<IAuthReturnData> {
 		return this.restInstance
 			.post<IAuthReturnData>('/auth/login', credential)
+			.then(({ data }) => data);
+	}
+
+
+	public async onLogout():  Promise<void> {
+		return this.restInstance
+			.post('/auth/logout')
 			.then(({ data }) => data);
 	}
 

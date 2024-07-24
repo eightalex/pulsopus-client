@@ -4,7 +4,7 @@ import { memo } from 'react';
 import { useSelector } from "@/hooks";
 import { selectIsAuthorized } from "@/stores/auth";
 
-import { HeaderAuth } from "./HeaderAuth.tsx";
+import { HeaderAuth } from "./HeaderAuth/HeaderAuth.tsx";
 import { HeaderLogo } from "./HeaderLogo.tsx";
 import { HeaderNav } from "./HeaderNav.tsx";
 

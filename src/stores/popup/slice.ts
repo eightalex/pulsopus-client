@@ -7,7 +7,7 @@ const initialState: IPopupStore = {
     },
 };
 
-export const popupSlice = createSlice({
+export const slice = createSlice({
     name: 'popup',
     initialState,
     reducers: {
@@ -30,7 +30,7 @@ export const popupSlice = createSlice({
     }
 });
 
-const { reducer, actions } = popupSlice;
+const { reducer, actions } = slice;
 
-export { reducer, actions };
+export { actions, reducer };
 export default reducer;
