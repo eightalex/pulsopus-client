@@ -8,9 +8,10 @@ export class AuthService {
 	constructor(private readonly restInstance: AxiosInstance) {}
 
 	public redirectApp(redirect?: string) {
-		// if(!sessionManager.token) return;
 		const params = {} as { [QUERY_TOKEN]?: string, [QUERY_REDIRECT]?: string };
-		// params[QUERY_TOKEN] = sessionManager.token;
+		if(sessionManager.token) {
+			params[QUERY_TOKEN] = sessionManager.token;
+		}
 		if(redirect) {
 			params[QUERY_REDIRECT] = redirect;
 		}
@@ -32,6 +33,9 @@ export class AuthService {
 			.then(({ data }) => data);
 	}
 
+	public async onRefreshToken():  Promise<void> {
+		await this.restInstance.post('/auth/refresh');
+	}
 
 	public async onLogout():  Promise<void> {
 		return this.restInstance

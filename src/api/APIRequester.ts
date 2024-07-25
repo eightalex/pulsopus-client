@@ -4,82 +4,73 @@ import { API_URL, IS_DEV } from '@/config.ts';
 import sessionManager from './SessionManager.ts';
 
 export class APIRequester {
-	protected restInstance: AxiosInstance;
-	public readonly authService: AuthService;
+  protected restInstance: AxiosInstance;
+  public readonly authService: AuthService;
 
-	constructor() {
-		this.restInstance = this.createAxiosInstance();
+  constructor() {
+    this.restInstance = this.createAxiosInstance();
 
-		this.authService = new AuthService(this.restInstance);
-	}
+    this.authService = new AuthService(this.restInstance);
+  }
 
-	private createAxiosInstance() {
-		const axiosDefaults = {
-			withCredentials: true,
-			baseURL: API_URL,
-		} as CreateAxiosDefaults;
+  private createAxiosInstance() {
+    const axiosDefaults = {
+      withCredentials: true,
+      baseURL: API_URL,
+    } as CreateAxiosDefaults;
 
-		const axiosInstance = axios.create(axiosDefaults);
+    const axiosInstance = axios.create(axiosDefaults);
 
-		axiosInstance.interceptors.request.use(
-			async request => {
-				const token = sessionManager.token;
-				if(token) {
-					request.headers['Authorization'] = `Bearer ${token}`;
-				}
-				return request;
-			},
-			(error) => Promise.reject(error)
-		);
+    axiosInstance.interceptors.request.use(
+      async request => {
+        const token = sessionManager.token;
+        if (token) {
+          request.headers['Authorization'] = `Bearer ${token}`;
+        }
+        return request;
+      },
+      (error) => Promise.reject(error)
+    );
 
-		axiosInstance.interceptors.response.use(
-			(response) => {
-				if (response.data?.token) {
-					sessionManager.setToken(response.data.token);
-				}
-				return response;
-			},
-			async (error) => {
-				if (error.response && error.response.status === 401) {
-					// dev p2p interceptors
-					if (IS_DEV) {
-						// alert('401 error ' + JSON.stringify(error.response, null, 4));
-					}
-				}
-				// const originalConfig = error.config;
-				// const requestError = new RequestError(error);
-				//
-				// const authPath = (originalConfig.url as string)
-				// 	.split('/')
-				// 	.find((u) => ['login', 'register'].includes(u));
-				//
-				// if (!authPath && error.response.status === 401 && !originalConfig._retry) {
-				// 	originalConfig._retry = true;
-				//
-				// 	try {
-				// 		const { refreshToken } = await this.authService.getTokens();
-				// 		const refreshUrl = `${originalConfig.baseURL}/auth/refresh`;
-				// 		const headers = { Authorization: `Bearer ${refreshToken}` };
-				// 		const data = await axios
-				// 			.get<IAuthAuthorize>(refreshUrl, { headers })
-				// 			.then(r => r.data as IAuthAuthorize);
-				// 		await this.authService.setTokens(data);
-				// 		return axiosInstance(originalConfig);
-				// 	} catch (_error) {
-				// 		await this.authService.clearTokens();
-				// 		//TODO: how to get router instance ?
-				// 		// router.push({path: "/login"})
-				//
-				// 		// @ts-expect-error: _error typeof unknown
-				// 		return Promise.reject(_error.response);
-				// 	}
-				// }
-				return Promise.reject(error.response);
-			}
-		);
+    axiosInstance.interceptors.response.use(
+      (response) => {
+        if (response.data?.token) {
+          sessionManager.setToken(response.data.token);
+        }
+        return response;
+      },
+      async (error) => {
+        const originalRequest = error.config;
+        if (IS_DEV) {
+          console.log('Request error', error);
+        }
 
-		return axiosInstance;
-	}
+        const authPath = (originalRequest.url as string)
+          .split('/')
+          .find((u) => ['login', 'request-access', 'logout'].includes(u));
+
+        if (!authPath && error.response.status === 401 && !originalRequest._retry) {
+          originalRequest._retry = true;
+          try {
+            const refreshUrl = `${originalRequest.baseURL}/auth/refresh`;
+            const instance = axios.create({ withCredentials: true });
+            await instance.post(refreshUrl);
+            return axiosInstance(originalRequest);
+          } catch (refreshError) {
+            console.error('Token refresh failed:', refreshError);
+            sessionManager.removeTokens();
+            //TODO: how to get router instance ?
+            // router.push({path: "/login"})
+            // window.location.href = '/login';
+            return Promise.reject(refreshError);
+          }
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    return axiosInstance;
+  }
 }
 
 export default new APIRequester();
