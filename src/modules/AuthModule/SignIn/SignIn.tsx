@@ -14,16 +14,16 @@ export const SignIn = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
 
+  const onEmailSignIn = useCallback(() => {
+    dispatch(actions.setSignInEmailStage());
+  }, [dispatch]);
+
   const onSign = useCallback((type: EAuthSignType) => {
     if (!type) {
       throw new Error('Unexpected exception. Type cannot be empty ');
     }
-    alert(`Sign with type: ${type} not implemented yet!`);
-  }, []);
-
-  const onEmailSignIn = useCallback(() => {
-    dispatch(actions.setSignInEmailStage());
-  }, [dispatch]);
+    onEmailSignIn();
+  }, [onEmailSignIn]);
 
   return (
     <Stack pt={2} spacing={8}>
@@ -39,49 +39,39 @@ export const SignIn = () => {
         {signInSystemList.map(({ type, icon: Icon, enabled }) => {
           const text = `Sing in with ${type}`;
           return (
-            <Tooltip
+            <Button
               key={type}
-              title={text}
-              placement='top'
-              arrow
+              disabled={isLoading}
+              onClick={() => onSign(type)}
+              size='medium'
+              startIcon={<Icon/>}
+              color='secondary'
             >
-              <Button
-                disabled={!enabled || isLoading}
-                onClick={() => onSign(type)}
-                size='medium'
-                startIcon={<Icon/>}
-                color='secondary'
-              >
-                <Typography variant={'text'} color='inherit'>
-                  {text}
-                </Typography>
-              </Button>
-            </Tooltip>
+              <Typography variant={'text'} color='inherit'>
+                {text}
+              </Typography>
+            </Button>
+            // <Tooltip
+            //   key={type}
+            //   title={text}
+            //   placement='top'
+            //   arrow
+            // >
+            //   <Button
+            //     disabled={isLoading}
+            //     onClick={() => onSign(type)}
+            //     size='medium'
+            //     startIcon={<Icon/>}
+            //     color='secondary'
+            //   >
+            //     <Typography variant={'text'} color='inherit'>
+            //       {text}
+            //     </Typography>
+            //   </Button>
+            // </Tooltip>
           );
         })}
       </Stack>
-
-      <Tooltip
-        title={'Enter user email for test login!'}
-        placement='bottom'
-        arrow
-      >
-        <Button
-          disabled={isLoading}
-          onClick={() => onEmailSignIn()}
-          variant="text"
-          sx={({ spacing }) => ({
-            width: '100%',
-            height: 'auto',
-            padding: spacing(2),
-            justifyContent: 'center',
-          })}
-        >
-          <Typography variant="text" color='typography.success'>
-            Login with email
-          </Typography>
-        </Button>
-      </Tooltip>
     </Stack>
   );
 };
