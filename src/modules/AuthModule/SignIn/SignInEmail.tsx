@@ -50,8 +50,9 @@ export const SignInEmail = () => {
     <Stack pt={2} spacing={8}>
       <Stack
         direction='row'
-        justifyContent='space-between'
+        // justifyContent='space-between'
         alignItems='center'
+        spacing={3}
       >
         <ButtonIcon
           disabledActive
@@ -70,7 +71,7 @@ export const SignInEmail = () => {
           textAlign='center'
           noWrap
         >
-          SignIn with email
+          Email
         </Typography>
 
       </Stack>
