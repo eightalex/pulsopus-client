@@ -37,12 +37,13 @@ export const onLogin = createAsyncThunk<IAuthTokensData, IAuthCredential>(
       // TODO: axios error type with data.message ?? | refactor
       const error = err as Error & { data?: { message: string; } };
       const axError = err as AxiosError;
+      console.log('axError', axError);
       console.error('[onLogin]: ', error);
-      if (axError.status === 403) {
+      if (axError.response?.status === 403) {
         thunkApi.dispatch(actions.setCredential(credential));
         thunkApi.dispatch(actions.setRequestAccessStage());
       }
-      if (![403].includes(axError.status as number)) {
+      if (![403].includes(axError.response?.status as number)) {
         toast.error(error.data?.message || error.message);
       }
       return thunkApi.rejectWithValue(error.message);
