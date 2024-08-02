@@ -1,6 +1,5 @@
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import Tooltip from "@mui/material/Tooltip";
 import { useCallback } from "react";
 
 import Typography from "@/components/Typography";
@@ -51,24 +50,6 @@ export const SignIn = () => {
                 {text}
               </Typography>
             </Button>
-            // <Tooltip
-            //   key={type}
-            //   title={text}
-            //   placement='top'
-            //   arrow
-            // >
-            //   <Button
-            //     disabled={isLoading}
-            //     onClick={() => onSign(type)}
-            //     size='medium'
-            //     startIcon={<Icon/>}
-            //     color='secondary'
-            //   >
-            //     <Typography variant={'text'} color='inherit'>
-            //       {text}
-            //     </Typography>
-            //   </Button>
-            // </Tooltip>
           );
         })}
       </Stack>
