@@ -13,7 +13,7 @@ This project uses the following environment variables:
 `react + typescript`, `material`, `redux`
 
 ```sh
-pulsopus-app
+pulsopus-client
 ├── dist/   # Output folder from build
 ├── node_modules/   # Library root
 ├── public/
