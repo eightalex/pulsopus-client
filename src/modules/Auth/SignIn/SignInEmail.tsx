@@ -13,9 +13,8 @@ import { ArrowLeftIcon } from "@/icons";
 import { actions, onLogin, selectIsLoading } from "@/stores/auth";
 
 const initialValues = {
-  // email: 'user@pulsopus.dev',
-  // email: 'admin@pulsopus.dev',
-  email: '',
+  // user@pulsopus.dev | admin@pulsopus.dev',
+  email: '1111user@pulsopus.dev',
 };
 
 export const SignInEmail = () => {
