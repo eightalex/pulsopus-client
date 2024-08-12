@@ -52,7 +52,6 @@ export const onLogin = createAsyncThunk<IAuthTokensData, IAuthCredential>(
   }
 );
 
-
 export const onLogout = createAsyncThunk(
   'auth/logout',
   async () => {

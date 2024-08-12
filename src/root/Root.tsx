@@ -4,11 +4,10 @@ import type { History } from "@remix-run/router";
 import { createBrowserHistory } from 'history';
 import { memo, useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { unstable_HistoryRouter as HistoryRouter, useLocation, useRoutes } from 'react-router-dom';
+import { unstable_HistoryRouter as HistoryRouter, useRoutes } from 'react-router-dom';
 
 import Typography from "@/components/Typography";
 import { IS_DEV, VERSION } from "@/config";
-import { DOCUMENTS_TITLES } from "@/constants/routes.ts";
 import { useDispatch } from "@/hooks";
 import { NotificationContainer } from '@/root/NotificationContainer.tsx';
 import { routes } from "@/routes";
@@ -17,7 +16,6 @@ import { onAuthorize } from "@/stores/auth";
 import Theme from '@/theme';
 
 const ROUTE_BASELINE: string = '/';
-
 
 const history = createBrowserHistory({
     window,
@@ -41,13 +39,8 @@ const BuildVersion = () => {
 };
 
 const App = () => {
-  const location = useLocation();
   const element = useRoutes(routes);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    document.title = DOCUMENTS_TITLES[location.pathname] || DOCUMENTS_TITLES.ROOT_ROUTE;
-  }, [location.pathname]);
 
   useEffect(() => {
     dispatch(onAuthorize());

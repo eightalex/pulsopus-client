@@ -1,7 +1,8 @@
-import { MoonLightIcon, SunOutlinedIcon } from '@/icons';
 import { Switch } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { memo, useCallback, useMemo, useState } from 'react';
+
+import { MoonLightIcon, SunOutlinedIcon } from '@/icons';
 
 const ThemeSwitch = () => {
 	// TODO: implement theme store;

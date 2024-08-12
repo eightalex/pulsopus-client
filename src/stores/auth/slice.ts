@@ -48,17 +48,21 @@ export const slice = createSlice({
         state.isLoading = false;
         state.isAuthorized = false;
       })
+      .addCase(onAuthorize.rejected, (state) => {
+        state.isLoading = false;
+        state.isAuthorized = false;
+      })
       .addCase(onAuthorize.fulfilled, (state, { payload }) => {
         sessionManager.setToken(payload.accessToken);
         state.isAuthorized = true;
         state.isLoading = false;
       })
-      .addCase(onAuthorize.rejected, (state) => {
-        state.isLoading = false;
-        state.isAuthorized = false;
-      })
       .addCase(onLogin.pending, (state) => {
         state.isLoading = true;
+      })
+      .addCase(onLogin.rejected, (state) => {
+        state.isLoading = false;
+        state.isAuthorized = false;
       })
       .addCase(onLogin.fulfilled, (state, { payload }) => {
         sessionManager.setToken(payload.accessToken);
@@ -66,20 +70,16 @@ export const slice = createSlice({
         state.isLoading = false;
         api.authService.redirectApp(state.redirect);
       })
-      .addCase(onLogin.rejected, (state) => {
-        state.isLoading = false;
-        state.isAuthorized = false;
-      })
       .addCase(onSendRequestAccess.pending, (state) => {
         state.isLoading = true;
-      })
-      .addCase(onSendRequestAccess.fulfilled, (state) => {
-        state.isLoading = false;
-        state.stage = EAuthStage.AUTH_STAGE_REQUEST_ACCESS_SUCCESS;
       })
       .addCase(onSendRequestAccess.rejected, (state) => {
         state.isLoading = false;
         state.stage = EAuthStage.AUTH_STAGE_REQUEST_ACCESS_ERROR;
+      })
+      .addCase(onSendRequestAccess.fulfilled, (state) => {
+        state.isLoading = false;
+        state.stage = EAuthStage.AUTH_STAGE_REQUEST_ACCESS_SUCCESS;
       })
       .addCase(onLogout.pending, (state) => {
         state.isLoading = false;
