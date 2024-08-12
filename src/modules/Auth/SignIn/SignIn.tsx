@@ -35,7 +35,7 @@ export const SignIn = () => {
         Welcome
       </Typography>
       <Stack spacing={2}>
-        {signInSystemList.map(({ type, icon: Icon, enabled }) => {
+        {signInSystemList.map(({ type, icon: Icon }) => {
           const text = `Sing in with ${type}`;
           return (
             <Button

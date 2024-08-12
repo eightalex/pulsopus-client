@@ -1,8 +1,8 @@
-import { TextField } from "@mui/material";
+import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import { useCallback, useMemo } from "react";
-import { useLocation } from "react-router-dom";
 
 import ButtonIcon from "@/components/ButtonIcon/ButtonIcon.tsx";
 import { LoadingButton } from "@/components/LoadingButton";
@@ -16,11 +16,9 @@ const initialValues = {
   // email: 'user@pulsopus.dev',
   // email: 'admin@pulsopus.dev',
   email: '',
-  password: 'password',
 };
 
 export const SignInEmail = () => {
-  const location = useLocation();
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
 
@@ -28,12 +26,8 @@ export const SignInEmail = () => {
     initialValues,
     validationSchema: loginValidationSchema,
     onSubmit: (values) => {
-      const { email: login, password } = values;
-      dispatch(onLogin({
-        login,
-        password,
-        redirect: location?.state?.from?.pathname,
-      }));
+      const { email: login } = values;
+      dispatch(onLogin({ login }));
     },
   });
 
@@ -48,51 +42,51 @@ export const SignInEmail = () => {
   }, [dispatch]);
 
   return (
-    <Stack pt={2} spacing={8}>
-      <Stack
-        direction='row'
-        // justifyContent='space-between'
-        alignItems='center'
-        spacing={3}
-      >
-        <ButtonIcon
-          disabledActive
-          onClick={handleBack}
-          title={'Back'}
-          tooltipProps={{
-            title: 'Back',
-            placement: 'top',
+    <Stack pt={2} spacing={7}>
+      <Stack direction='row' position='relative' justifyContent='center'>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: 0,
+            transform: 'translateY(-50%)',
           }}
-          icon={<ArrowLeftIcon/>}
-        />
-
+        >
+          <ButtonIcon
+            disabledActive
+            onClick={handleBack}
+            title={'Back'}
+            tooltipProps={{
+              title: 'Back',
+              placement: 'top',
+            }}
+            icon={<ArrowLeftIcon/>}
+          />
+        </Box>
         <Typography
           variant="body2"
           fontSize={20}
+          textTransform="uppercase"
           textAlign='center'
-          noWrap
         >
-          Email
+          Enter Email
         </Typography>
-
       </Stack>
 
       <form onSubmit={formik.handleSubmit} autoComplete='off'>
-        <Stack spacing={6}>
-          <Stack spacing={2}>
-            <TextField
-              fullWidth
-              variant="filled"
-              placeholder="Email"
-              id="email"
-              name="email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
-            />
-          </Stack>
+        <Stack spacing={2}>
+          <TextField
+            fullWidth
+            variant="filled"
+            placeholder="Email"
+            id="email"
+            name="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+          />
           <LoadingButton
             loading={isLoading}
             disabled={isFormError}

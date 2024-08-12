@@ -10,8 +10,6 @@ export interface IAuthStore {
 
 export interface IAuthCredential {
     login: string;
-    password: string;
-    redirect?: string;
 }
 
 export interface IAuthTokensData {
