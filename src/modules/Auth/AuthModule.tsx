@@ -5,7 +5,11 @@ import { Dialog } from "@/components/Dialog";
 import { EAuthStage } from "@/constants/EAuth.ts";
 import { QUERY_PARAM_LOGIN, QUERY_PARAM_TARGET } from "@/constants/routes.ts";
 import { useDispatch, useSelector } from "@/hooks";
-import { actions as authActions, selectAuthStage } from "@/stores/auth";
+import {
+	actions as authActions,
+	selectAuthStage,
+	selectIsAuthorized,
+} from "@/stores/auth";
 import { getAuthPopupState, setStateAuthPopup } from "@/stores/popup";
 
 import { RequestAccess, RequestAccessError, RequestAccessSuccess } from "./RequestAccess";
@@ -23,6 +27,7 @@ const AuthModule = memo(() => {
 	const dispatch = useDispatch();
 	const location = useLocation();
 	const isOpen = useSelector(getAuthPopupState);
+	const isAuth = useSelector(selectIsAuthorized);
 	const stage = useSelector(selectAuthStage);
 	const [searchParams] = useSearchParams();
 
@@ -51,7 +56,7 @@ const AuthModule = memo(() => {
 	}, [location.pathname, location.search.length, searchParams]);
 
 	const handleSearchLoginParams = useCallback(()  => {
-		if(searchParams.has(QUERY_PARAM_LOGIN) && !isOpen) {
+		if(searchParams.has(QUERY_PARAM_LOGIN) && !isOpen && !isAuth) {
 			dispatch(setStateAuthPopup());
 		}
 
@@ -61,7 +66,7 @@ const AuthModule = memo(() => {
 		}
 
 		handleClearAuthSearchParams();
-	}, [searchParams, isOpen, handleClearAuthSearchParams, dispatch]);
+	}, [isAuth, searchParams, isOpen, handleClearAuthSearchParams, dispatch]);
 
 	useEffect(() => {
 		handleSearchLoginParams();

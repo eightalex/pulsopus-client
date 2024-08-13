@@ -5,7 +5,7 @@ export interface IAuthStore {
     isLoading: boolean;
     stage: EAuthStage;
     credential?: IAuthCredential,
-    redirect: string;
+    target: string;
 }
 
 export interface IAuthCredential {

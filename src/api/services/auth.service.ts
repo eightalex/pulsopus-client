@@ -7,13 +7,13 @@ import { IAuthCredential, IAuthReturnData } from "@/interfaces/IAuthStore.ts";
 export class AuthService {
 	constructor(private readonly restInstance: AxiosInstance) {}
 
-	public redirectApp(redirect?: string) {
+	public redirectApp(target?: string) {
 		const params = {} as { [QUERY_PARAM_TARGET]?: string, [QUERY_PARAM_TOKEN]?: string };
 		if(sessionManager.token) {
 			params[QUERY_PARAM_TOKEN] = sessionManager.token;
 		}
-		if(redirect) {
-			params[QUERY_PARAM_TARGET] = redirect;
+		if(target) {
+			params[QUERY_PARAM_TARGET] = target;
 		}
 		const query = new URLSearchParams(params).toString();
 		let url = APP_URL;
