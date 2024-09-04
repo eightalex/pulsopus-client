@@ -14,7 +14,7 @@ import { actions, onLogin, selectIsLoading } from "@/stores/auth";
 
 const initialValues = {
   // user@pulsopus.dev | admin@pulsopus.dev',
-  email: '1111user@pulsopus.dev',
+  email: 'admin@pulsopus.dev',
 };
 
 export const SignInEmail = () => {
