@@ -4,6 +4,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import api from '@/api';
 import sessionManager from "@/api/SessionManager.ts";
 import { IAuthCredential, IAuthReturnData, IAuthTokensData } from "@/interfaces/IAuthStore.ts";
+import { IErrorResponseData } from "@/interfaces/IErrorResponseData.ts";
 import { IRootState } from "@/interfaces/IRootStore.ts";
 import { actions } from './slice.ts';
 
@@ -16,10 +17,11 @@ export const onAuthorize = createAsyncThunk<IAuthReturnData, void>(
         throw new Error('Unexpected exception auth/authorize. No data');
       }
       return thunkApi.fulfillWithValue(data);
-    } catch (err) {
-      const error = err as Error;
-      console.error('[onAuthorize]: ', error);
-      return thunkApi.rejectWithValue('message');
+    } catch (error) {
+      const err = error as AxiosError<IErrorResponseData>;
+      const msg = err.response?.data?.message || err.message;
+      console.error('[onAuthorize]: ', msg, err);
+      return thunkApi.rejectWithValue(msg);
     }
   }
 );
@@ -33,25 +35,26 @@ export const onLogin = createAsyncThunk<IAuthTokensData, IAuthCredential>(
         throw new Error('Unexpected exception auth/login. No data');
       }
       return thunkApi.fulfillWithValue(data);
-    } catch (err) {
-      // TODO: axios error type with data.message ?? | refactor
-      const error = err as Error & { data?: { message: string; } };
-      const axError = err as AxiosError;
-      console.error('[onLogin]: ', error);
-      if (axError.response?.status === 403) {
+    } catch (error) {
+      const err = error as AxiosError<IErrorResponseData>;
+      const msg = err.response?.data?.message || err.message;
+      const responseStatusCode = err.response?.status as number;
+
+      console.error('[onLogin]: ', msg, err);
+
+      if (responseStatusCode === 403) {
         thunkApi.dispatch(actions.setCredential(credential));
         thunkApi.dispatch(actions.setRequestAccessStage());
       }
-      // TODO: validate message from response data | check axios interceptors
-      const { message } = axError.response?.data as { message: string };
-      if (![403].includes(axError.response?.status as number)) {
-        toast.error(message || axError.message || error.data?.message || error.message);
+
+      if(responseStatusCode !== 403) {
+        toast.error(msg);
       }
-      return thunkApi.rejectWithValue(error.message);
+
+      return thunkApi.rejectWithValue(msg);
     }
   }
 );
-
 
 export const onLogout = createAsyncThunk(
   'auth/logout',
@@ -76,15 +79,12 @@ export const onSendRequestAccess = createAsyncThunk<IAuthCredential, string>(
       }
       await api.authService.onRequestAccess(recipient, credential as IAuthCredential);
       return thunkApi.fulfillWithValue(credential as IAuthCredential);
-    } catch (err) {
-      // TODO: axios error type with data.message ?? | refactor
-      const error = err as Error & { data?: { message: string; } };
-      const axError = err as AxiosError;
-      // TODO: validate message from response data | check axios interceptors
-      const { message } = axError.response?.data as { message: string };
-      toast.error(message || error.data?.message || error.message);
-      console.error('[onSendRequestAccess]: ', error);
-      return thunkApi.rejectWithValue(error.message);
+    } catch (error) {
+      const err = error as AxiosError<IErrorResponseData>;
+      const msg = err.response?.data?.message || err.message;
+      console.error('[onSendRequestAccess]: ', msg, err);
+      toast.error(msg);
+      return thunkApi.rejectWithValue(msg);
     }
   }
 );

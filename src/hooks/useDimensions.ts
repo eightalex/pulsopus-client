@@ -1,6 +1,6 @@
+import { RefObject, useState } from 'react';
 import { useEventListener } from '@/hooks/useEventListener';
 import { useIsomorphicLayoutEffect } from '@/hooks/useIsomorphicLayoutEffect';
-import { RefObject, useState } from 'react';
 
 export const useDimensions = (targetRef: RefObject<HTMLDivElement>) => {
 	const getDimensions = () => {

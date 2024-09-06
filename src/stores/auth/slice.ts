@@ -9,7 +9,7 @@ const initialState: IAuthStore = {
   isAuthorized: false,
   isLoading: false,
   stage: EAuthStage.AUTH_STAGE_SIGN,
-  redirect: '',
+  target: '',
 };
 
 export const slice = createSlice({
@@ -20,8 +20,8 @@ export const slice = createSlice({
       state.credential = payload;
       return state;
     },
-    setRedirect: (state, { payload }: PayloadAction<IAuthStore["redirect"]>) => {
-      state.redirect = payload;
+    setRedirect: (state, { payload }: PayloadAction<IAuthStore["target"]>) => {
+      state.target = payload;
       return state;
     },
     resetStage: (state) => {
@@ -48,38 +48,38 @@ export const slice = createSlice({
         state.isLoading = false;
         state.isAuthorized = false;
       })
+      .addCase(onAuthorize.rejected, (state) => {
+        state.isLoading = false;
+        state.isAuthorized = false;
+      })
       .addCase(onAuthorize.fulfilled, (state, { payload }) => {
         sessionManager.setToken(payload.accessToken);
         state.isAuthorized = true;
         state.isLoading = false;
       })
-      .addCase(onAuthorize.rejected, (state) => {
-        state.isLoading = false;
-        state.isAuthorized = false;
-      })
       .addCase(onLogin.pending, (state) => {
         state.isLoading = true;
-      })
-      .addCase(onLogin.fulfilled, (state, { payload }) => {
-        sessionManager.setToken(payload.accessToken);
-        state.isAuthorized = true;
-        state.isLoading = false;
-        api.authService.redirectApp(state.redirect);
       })
       .addCase(onLogin.rejected, (state) => {
         state.isLoading = false;
         state.isAuthorized = false;
       })
+      .addCase(onLogin.fulfilled, (state, { payload }) => {
+        sessionManager.setToken(payload.accessToken);
+        state.isAuthorized = true;
+        state.isLoading = false;
+        api.authService.redirectApp(state.target);
+      })
       .addCase(onSendRequestAccess.pending, (state) => {
         state.isLoading = true;
-      })
-      .addCase(onSendRequestAccess.fulfilled, (state) => {
-        state.isLoading = false;
-        state.stage = EAuthStage.AUTH_STAGE_REQUEST_ACCESS_SUCCESS;
       })
       .addCase(onSendRequestAccess.rejected, (state) => {
         state.isLoading = false;
         state.stage = EAuthStage.AUTH_STAGE_REQUEST_ACCESS_ERROR;
+      })
+      .addCase(onSendRequestAccess.fulfilled, (state) => {
+        state.isLoading = false;
+        state.stage = EAuthStage.AUTH_STAGE_REQUEST_ACCESS_SUCCESS;
       })
       .addCase(onLogout.pending, (state) => {
         state.isLoading = false;

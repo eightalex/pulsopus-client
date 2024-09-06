@@ -27,6 +27,12 @@ export const slice = createSlice({
             state.popups = { ...state.popups, [action.payload]: !prevValue };
             return state;
         },
+        setStatePopup: (state, action: PayloadAction<{ type: keyof typeof EPopupType, set: boolean }>) => {
+            const { payload: { type, set } } = action;
+            if(!type) return state;
+            state.popups = { ...state.popups, [type]: set };
+            return state;
+        },
     }
 });
 
