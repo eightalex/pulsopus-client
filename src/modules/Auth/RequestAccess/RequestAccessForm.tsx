@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from "@/hooks";
 import { onSendRequestAccess, selectIsLoading } from "@/stores/auth";
 
 const initialValues = {
-  // email: 'admin@pulsopus.dev',
   email: '',
 };
 
